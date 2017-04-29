@@ -1,7 +1,7 @@
 package com.fabs.service;
 
 import com.fabs.dao.AuditDAO;
-import com.fabs.model.Audit;
+import com.fabs.model.core.Audit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

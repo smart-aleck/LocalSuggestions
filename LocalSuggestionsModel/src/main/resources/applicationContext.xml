@@ -15,23 +15,50 @@
         <property name="username" value="root" />
         <property name="password" value="root" />
     </bean>
+    <bean id="dataSourceUsers" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/local_suggestions" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="annotatedClasses">
             <list>
-                <value>com.fabs.model.Audit</value>
+                <value>com.fabs.model.core.Audit</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/local_suggestions</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="sessionFactoryUsers" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceUsers"></property>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.fabs.model.users.User</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/local_suggestions_users</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
           p:sessionFactory-ref="sessionFactory">
+    </bean>
+    <bean id="transactionManagerUsers" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactoryUsers">
     </bean>
 </beans>
