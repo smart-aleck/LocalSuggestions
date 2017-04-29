@@ -9,10 +9,10 @@ import java.sql.Timestamp;
 public class UserDecoration {
     private String userAccess;
     private String userDecorationName;
-    private Boolean defaultValue;
-    private Integer version;
-    private Timestamp updateTimestamp;
-    private Byte isDeleted;
+    private String defaultValue;
+    private Integer version = 0;
+    private Timestamp updateTimestamp = null;
+    private Boolean isDeleted = false;
 
     @Id
     @Column(name = "userAccess")
@@ -36,11 +36,11 @@ public class UserDecoration {
 
     @Basic
     @Column(name = "defaultValue")
-    public Boolean getDefaultValue() {
+    public String getDefaultValue() {
         return defaultValue;
     }
 
-    public void setDefaultValue(Boolean defaultValue) {
+    public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
@@ -66,11 +66,11 @@ public class UserDecoration {
 
     @Basic
     @Column(name = "isDeleted")
-    public Byte getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 
@@ -102,5 +102,17 @@ public class UserDecoration {
         result = 31 * result + (updateTimestamp != null ? updateTimestamp.hashCode() : 0);
         result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDecoration{" +
+                "userAccess='" + userAccess + '\'' +
+                ", userDecorationName='" + userDecorationName + '\'' +
+                ", defaultValue='" + defaultValue + '\'' +
+                ", version=" + version +
+                ", updateTimestamp=" + updateTimestamp +
+                ", isDeleted=" + isDeleted +
+                '}';
     }
 }

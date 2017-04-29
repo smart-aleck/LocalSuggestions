@@ -8,6 +8,13 @@ public class UserDecorationPK implements Serializable {
     private String userAccess;
     private String userDecorationName;
 
+    public UserDecorationPK() {
+    }
+    public UserDecorationPK(UserDecoration userDecoration) {
+        this.userAccess = userDecoration.getUserAccess();
+        this.userDecorationName = userDecoration.getUserDecorationName();
+    }
+
     @Column(name = "userAccess")
     @Id
     public String getUserAccess() {
@@ -47,5 +54,13 @@ public class UserDecorationPK implements Serializable {
         int result = userAccess != null ? userAccess.hashCode() : 0;
         result = 31 * result + (userDecorationName != null ? userDecorationName.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDecorationPK{" +
+                "userAccess='" + userAccess + '\'' +
+                ", userDecorationName='" + userDecorationName + '\'' +
+                '}';
     }
 }

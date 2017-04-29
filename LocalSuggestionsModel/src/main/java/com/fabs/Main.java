@@ -1,6 +1,7 @@
 package com.fabs;
 
 import com.fabs.model.core.Audit;
+import com.fabs.model.users.UserDecoration;
 import com.fabs.service.TestService;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -27,14 +28,14 @@ public class Main {
         audit.setDescription("TestDescription");
         audit.setLocation(new GeometryFactory().createPoint(new Coordinate(5,2.5)));
 
-//        User user = new User();
-//        user.setEmail("ali.asghar@localsuggestions.com");
-//        user.setPasswordHash("hash");
-//        user.setPasswordSalt("salt");
-//        user
+        UserDecoration userDecoration = new UserDecoration();
+        userDecoration.setUserAccess("BASIC");
+        userDecoration.setUserDecorationName("locationUpdate");
+        userDecoration.setDefaultValue("false");
 
         TestService testService = (TestService) context.getBean("testService");
         testService.runTest(audit);
+        testService.runUsersTest(userDecoration);
 
         logger.debug(audit.toString());
 
