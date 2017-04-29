@@ -4,34 +4,45 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user_decoration", schema = "local_suggestions_users")
-@IdClass(UserDecorationPK.class)
-public class UserDecoration {
-    private String userAccess;
-    private String userDecorationName;
+@Table(name = "decoration", schema = "local_suggestions_users")
+public class Decoration {
+    private Integer id;
+    private UserAccess userAccessId;
+    private String decorationName;
     private String defaultValue;
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
 
     @Id
-    @Column(name = "userAccess")
-    public String getUserAccess() {
-        return userAccess;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserAccess(String userAccess) {
-        this.userAccess = userAccess;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @Id
-    @Column(name = "userDecorationName")
-    public String getUserDecorationName() {
-        return userDecorationName;
+    @ManyToOne
+    @JoinColumn(name = "userAccessId", referencedColumnName = "id")
+    public UserAccess getUserAccessId() {
+        return userAccessId;
     }
 
-    public void setUserDecorationName(String userDecorationName) {
-        this.userDecorationName = userDecorationName;
+    public void setUserAccessId(UserAccess userAccessId) {
+        this.userAccessId = userAccessId;
+    }
+
+    @Basic
+    @Column(name = "decorationName")
+    public String getDecorationName() {
+        return decorationName;
+    }
+
+    public void setDecorationName(String decorationName) {
+        this.decorationName = decorationName;
     }
 
     @Basic
@@ -66,12 +77,12 @@ public class UserDecoration {
 
     @Basic
     @Column(name = "isDeleted")
-    public Boolean getIsDeleted() {
+    public Boolean getDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     @Override
@@ -79,10 +90,10 @@ public class UserDecoration {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserDecoration that = (UserDecoration) o;
+        Decoration that = (Decoration) o;
 
-        if (userAccess != null ? !userAccess.equals(that.userAccess) : that.userAccess != null) return false;
-        if (userDecorationName != null ? !userDecorationName.equals(that.userDecorationName) : that.userDecorationName != null)
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (decorationName != null ? !decorationName.equals(that.decorationName) : that.decorationName != null)
             return false;
         if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that.defaultValue != null) return false;
         if (version != null ? !version.equals(that.version) : that.version != null) return false;
@@ -95,8 +106,8 @@ public class UserDecoration {
 
     @Override
     public int hashCode() {
-        int result = userAccess != null ? userAccess.hashCode() : 0;
-        result = 31 * result + (userDecorationName != null ? userDecorationName.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (decorationName != null ? decorationName.hashCode() : 0);
         result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (updateTimestamp != null ? updateTimestamp.hashCode() : 0);
@@ -106,9 +117,10 @@ public class UserDecoration {
 
     @Override
     public String toString() {
-        return "UserDecoration{" +
-                "userAccess='" + userAccess + '\'' +
-                ", userDecorationName='" + userDecorationName + '\'' +
+        return "Decoration{" +
+                "id=" + id +
+                ", userAccessId=" + userAccessId +
+                ", decorationName='" + decorationName + '\'' +
                 ", defaultValue='" + defaultValue + '\'' +
                 ", version=" + version +
                 ", updateTimestamp=" + updateTimestamp +

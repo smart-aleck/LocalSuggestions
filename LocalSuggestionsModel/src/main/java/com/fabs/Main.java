@@ -1,8 +1,8 @@
 package com.fabs;
 
 import com.fabs.model.core.Audit;
+import com.fabs.model.users.Decoration;
 import com.fabs.model.users.UserAccess;
-import com.fabs.model.users.UserDecoration;
 import com.fabs.service.TestService;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -29,19 +29,20 @@ public class Main {
         audit.setDescription("TestDescription");
         audit.setLocation(new GeometryFactory().createPoint(new Coordinate(5,2.5)));
 
-        UserDecoration userDecoration = new UserDecoration();
-        userDecoration.setUserAccess("BASIC");
-        userDecoration.setUserDecorationName("locationUpdate");
-        userDecoration.setDefaultValue("false");
-
         UserAccess userAccess = new UserAccess();
         userAccess.setId(1);
         userAccess.setUserAccessText("BASIC");
 
         TestService testService = (TestService) context.getBean("testService");
-//        testService.runTest(audit);
-//        testService.runUsersTest(userDecoration);
-        testService.runUserAccessTest(userAccess);
+        testService.runAuditTest(audit);
+        userAccess = testService.runUserAccessTest(userAccess);
+
+        Decoration decoration = new Decoration();
+        decoration.setDecorationName("locationUpdate");
+        decoration.setDefaultValue("false");
+        decoration.setUserAccessId(userAccess);
+
+        testService.runDecorationTest(decoration);
 
         logger.debug(audit.toString());
 

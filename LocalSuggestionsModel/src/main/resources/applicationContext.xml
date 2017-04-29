@@ -43,8 +43,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>com.fabs.model.users.UserAccess</value>
-                <value>com.fabs.model.users.UserDecoration</value>
-                <value>com.fabs.model.users.UserDecorationPK</value>
+                <value>com.fabs.model.users.Decoration</value>
             </list>
         </property>
         <property name="hibernateProperties">
