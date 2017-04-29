@@ -1,6 +1,7 @@
 package com.fabs;
 
 import com.fabs.model.core.Audit;
+import com.fabs.model.users.UserAccess;
 import com.fabs.model.users.UserDecoration;
 import com.fabs.service.TestService;
 import com.vividsolutions.jts.geom.Coordinate;
@@ -33,9 +34,14 @@ public class Main {
         userDecoration.setUserDecorationName("locationUpdate");
         userDecoration.setDefaultValue("false");
 
+        UserAccess userAccess = new UserAccess();
+        userAccess.setId(1);
+        userAccess.setUserAccessText("BASIC");
+
         TestService testService = (TestService) context.getBean("testService");
-        testService.runTest(audit);
-        testService.runUsersTest(userDecoration);
+//        testService.runTest(audit);
+//        testService.runUsersTest(userDecoration);
+        testService.runUserAccessTest(userAccess);
 
         logger.debug(audit.toString());
 

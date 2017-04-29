@@ -42,6 +42,7 @@
         <property name="dataSource" ref="dataSourceUsers"></property>
         <property name="annotatedClasses">
             <list>
+                <value>com.fabs.model.users.UserAccess</value>
                 <value>com.fabs.model.users.UserDecoration</value>
                 <value>com.fabs.model.users.UserDecorationPK</value>
             </list>
