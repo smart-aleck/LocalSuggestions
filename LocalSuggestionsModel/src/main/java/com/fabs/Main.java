@@ -27,6 +27,12 @@ public class Main {
         audit.setDescription("TestDescription");
         audit.setLocation(new GeometryFactory().createPoint(new Coordinate(5,2.5)));
 
+//        User user = new User();
+//        user.setEmail("ali.asghar@localsuggestions.com");
+//        user.setPasswordHash("hash");
+//        user.setPasswordSalt("salt");
+//        user
+
         TestService testService = (TestService) context.getBean("testService");
         testService.runTest(audit);
 

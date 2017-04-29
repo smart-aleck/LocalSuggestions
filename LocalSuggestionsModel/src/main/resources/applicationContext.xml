@@ -17,7 +17,7 @@
     </bean>
     <bean id="dataSourceUsers" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/local_suggestions" />
+        <property name="url" value="jdbc:mysql://localhost:3306/local_suggestions_users" />
         <property name="username" value="root" />
         <property name="password" value="root" />
     </bean>
@@ -42,7 +42,8 @@
         <property name="dataSource" ref="dataSourceUsers"></property>
         <property name="annotatedClasses">
             <list>
-                <value>com.fabs.model.users.User</value>
+                <value>com.fabs.model.users.UserDecoration</value>
+                <value>com.fabs.model.users.UserDecorationPK</value>
             </list>
         </property>
         <property name="hibernateProperties">
