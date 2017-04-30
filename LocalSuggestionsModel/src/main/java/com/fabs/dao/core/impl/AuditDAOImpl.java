@@ -1,6 +1,6 @@
-package com.fabs.dao.impl;
+package com.fabs.dao.core.impl;
 
-import com.fabs.dao.AuditDAO;
+import com.fabs.dao.core.AuditDAO;
 import com.fabs.model.core.Audit;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional("transactionManager")
 public class AuditDAOImpl implements AuditDAO {
 
-    @Autowired
-    @Qualifier(value="sessionFactory")
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public AuditDAOImpl(@Qualifier("sessionFactory") SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     public void log(Audit audit) {
         sessionFactory.getCurrentSession().persist(audit);

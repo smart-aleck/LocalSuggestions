@@ -1,7 +1,6 @@
-package com.fabs.dao.impl;
+package com.fabs.dao.users.impl;
 
-import com.fabs.dao.UserDAO;
-import com.fabs.model.users.Decoration;
+import com.fabs.dao.users.UserDAO;
 import com.fabs.model.users.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional("transactionManagerUsers")
 public class UserDAOImpl implements UserDAO {
 
-    @Autowired
-    @Qualifier(value="sessionFactoryUsers")
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public UserDAOImpl(@Qualifier("sessionFactoryUsers") SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     public void saveOrUpdate(User user) {
         user.setVersion(user.getVersion()+1);

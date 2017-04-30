@@ -1,6 +1,10 @@
 package com.fabs.service;
 
-import com.fabs.dao.*;
+import com.fabs.dao.core.AuditDAO;
+import com.fabs.dao.core.UserDecorationOverrideDAO;
+import com.fabs.dao.users.DecorationDAO;
+import com.fabs.dao.users.UserAccessDAO;
+import com.fabs.dao.users.UserDAO;
 import com.fabs.model.core.Audit;
 import com.fabs.model.core.UserDecorationOverride;
 import com.fabs.model.users.Decoration;

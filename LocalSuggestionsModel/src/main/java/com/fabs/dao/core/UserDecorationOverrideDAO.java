@@ -1,4 +1,4 @@
-package com.fabs.dao;
+package com.fabs.dao.core;
 
 import com.fabs.model.core.UserDecorationOverride;
 

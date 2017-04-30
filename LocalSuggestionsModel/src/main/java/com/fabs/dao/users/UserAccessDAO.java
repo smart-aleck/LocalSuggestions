@@ -1,4 +1,4 @@
-package com.fabs.dao;
+package com.fabs.dao.users;
 
 import com.fabs.model.users.UserAccess;
 
