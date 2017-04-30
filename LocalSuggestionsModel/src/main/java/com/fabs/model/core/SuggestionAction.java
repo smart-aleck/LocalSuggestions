@@ -29,7 +29,7 @@ public class SuggestionAction {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "suggestionId", referencedColumnName = "id")
     public Suggestion getSuggestion() {
         return suggestion;
@@ -49,7 +49,7 @@ public class SuggestionAction {
         this.userId = userId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "actionId", referencedColumnName = "id")
     public Action getAction() {
         return action;

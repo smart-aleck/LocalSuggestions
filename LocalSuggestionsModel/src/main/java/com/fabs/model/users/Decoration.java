@@ -25,7 +25,7 @@ public class Decoration {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accessId", referencedColumnName = "id")
     public Access getAccess() {
         return access;

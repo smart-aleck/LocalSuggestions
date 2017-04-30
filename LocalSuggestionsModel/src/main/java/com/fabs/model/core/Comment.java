@@ -29,7 +29,7 @@ public class Comment {
         this.userId = userId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "suggestionId", referencedColumnName = "id")
     public Suggestion getSuggestion() {
         return suggestion;

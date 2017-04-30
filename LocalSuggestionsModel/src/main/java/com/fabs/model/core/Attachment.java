@@ -17,8 +17,8 @@ public class Attachment {
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
 
-    @ManyToOne
-    @JoinColumn(name = "suggestion", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "suggestionId", referencedColumnName = "id")
     public Suggestion getSuggestion() {
         return suggestion;
     }

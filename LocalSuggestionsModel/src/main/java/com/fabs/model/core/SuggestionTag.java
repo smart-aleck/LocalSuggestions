@@ -13,7 +13,7 @@ public class SuggestionTag {
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "suggestionId", referencedColumnName = "id")
     public Suggestion getSuggestion() {
         return suggestion;
