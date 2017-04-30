@@ -31,7 +31,7 @@ public class User {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "userAccessId", referencedColumnName = "id")
     public Access getAccess() {
         return access;

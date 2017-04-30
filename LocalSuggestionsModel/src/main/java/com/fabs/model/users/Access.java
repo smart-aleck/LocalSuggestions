@@ -12,7 +12,7 @@ public class Access {
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
-    private List<Decoration> decorations;
+//    private List<Decoration> decorations;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -65,14 +65,14 @@ public class Access {
         isDeleted = deleted;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "decoration")
-    public List<Decoration> getDecorations() {
-        return this.decorations;
-    }
-
-    public void setDecorations(List<Decoration> decorations) {
-        decorations = decorations;
-    }
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "decoration")
+//    public List<Decoration> getDecorations() {
+//        return this.decorations;
+//    }
+//
+//    public void setDecorations(List<Decoration> decorations) {
+//        decorations = decorations;
+//    }
 
     @Override
     public boolean equals(Object o) {

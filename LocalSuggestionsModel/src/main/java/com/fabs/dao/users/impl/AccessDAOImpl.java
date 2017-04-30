@@ -1,6 +1,6 @@
 package com.fabs.dao.users.impl;
 
-import com.fabs.dao.users.UserAccessDAO;
+import com.fabs.dao.users.AccessDAO;
 import com.fabs.model.users.Access;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional("transactionManagerUsers")
-public class UserAccessDAOImpl implements UserAccessDAO {
+public class AccessDAOImpl implements AccessDAO {
 
     private SessionFactory sessionFactory;
 
     @Autowired
-    public UserAccessDAOImpl(@Qualifier("sessionFactoryUsers") SessionFactory sessionFactory) {
+    public AccessDAOImpl(@Qualifier("sessionFactoryUsers") SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

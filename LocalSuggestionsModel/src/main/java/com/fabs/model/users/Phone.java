@@ -15,7 +15,7 @@ public class Phone {
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     public User getUser() {
         return user;
