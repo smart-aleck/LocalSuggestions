@@ -1,15 +1,19 @@
-package com.fabs.model.users;
+package com.fabs.model.core;
+
+import com.vividsolutions.jts.geom.Point;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "decoration", schema = "local_suggestions_users")
-public class Decoration {
-    private Integer id;
-    private Access access;
-    private String decorationName;
-    private String defaultValue;
+@Table(name = "suggestion_action", schema = "local_suggestions")
+public class SuggestionAction {
+    private Long id;
+    private Suggestion suggestion;
+    private Integer userId;
+    private Action action;
+    private Point location;
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
@@ -17,42 +21,53 @@ public class Decoration {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @ManyToOne
-    @JoinColumn(name = "accessId", referencedColumnName = "id")
-    public Access getAccess() {
-        return access;
+    @JoinColumn(name = "suggestionId", referencedColumnName = "id")
+    public Suggestion getSuggestion() {
+        return suggestion;
     }
 
-    public void setAccess(Access accessId) {
-        this.access = accessId;
-    }
-
-    @Basic
-    @Column(name = "decorationName")
-    public String getDecorationName() {
-        return decorationName;
-    }
-
-    public void setDecorationName(String decorationName) {
-        this.decorationName = decorationName;
+    public void setSuggestion(Suggestion suggestion) {
+        this.suggestion = suggestion;
     }
 
     @Basic
-    @Column(name = "defaultValue")
-    public String getDefaultValue() {
-        return defaultValue;
+    @Column(name = "userId")
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "actionId", referencedColumnName = "id")
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    @Basic
+    @Type(type = "com.fabs.type.geometry.MySQL2DPointType")
+    @Column(name = "location")
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
     }
 
     @Basic
@@ -90,12 +105,13 @@ public class Decoration {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Decoration that = (Decoration) o;
+        SuggestionAction that = (SuggestionAction) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (decorationName != null ? !decorationName.equals(that.decorationName) : that.decorationName != null)
-            return false;
-        if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that.defaultValue != null) return false;
+        if (suggestion != null ? !suggestion.equals(that.suggestion) : that.suggestion != null) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+        if (action != null ? !action.equals(that.action) : that.action != null) return false;
+        if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (version != null ? !version.equals(that.version) : that.version != null) return false;
         if (updateTimestamp != null ? !updateTimestamp.equals(that.updateTimestamp) : that.updateTimestamp != null)
             return false;
@@ -107,8 +123,10 @@ public class Decoration {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (decorationName != null ? decorationName.hashCode() : 0);
-        result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
+        result = 31 * result + (suggestion != null ? suggestion.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (action != null ? action.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (updateTimestamp != null ? updateTimestamp.hashCode() : 0);
         result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
@@ -117,11 +135,12 @@ public class Decoration {
 
     @Override
     public String toString() {
-        return "Decoration{" +
+        return "SuggestionAction{" +
                 "id=" + id +
-                ", access=" + access +
-                ", decorationName='" + decorationName + '\'' +
-                ", defaultValue='" + defaultValue + '\'' +
+                ", suggestionId=" + suggestion +
+                ", userId=" + userId +
+                ", actionId=" + action +
+                ", location=" + location +
                 ", version=" + version +
                 ", updateTimestamp=" + updateTimestamp +
                 ", isDeleted=" + isDeleted +

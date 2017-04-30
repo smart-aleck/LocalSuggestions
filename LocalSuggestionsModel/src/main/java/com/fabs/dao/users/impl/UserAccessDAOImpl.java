@@ -1,7 +1,7 @@
 package com.fabs.dao.users.impl;
 
 import com.fabs.dao.users.UserAccessDAO;
-import com.fabs.model.users.UserAccess;
+import com.fabs.model.users.Access;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,13 +19,13 @@ public class UserAccessDAOImpl implements UserAccessDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public void saveOrUpdate(UserAccess userAccess) {
-        userAccess.setVersion(userAccess.getVersion()+1);
-        userAccess.setUpdateTimestamp(null);
-        sessionFactory.getCurrentSession().saveOrUpdate(userAccess);
+    public void saveOrUpdate(Access access) {
+        access.setVersion(access.getVersion()+1);
+        access.setUpdateTimestamp(null);
+        sessionFactory.getCurrentSession().saveOrUpdate(access);
     }
 
-    public UserAccess find(Integer id) {
-        return sessionFactory.getCurrentSession().find(UserAccess.class, id);
+    public Access find(Integer id) {
+        return sessionFactory.getCurrentSession().find(Access.class, id);
     }
 }

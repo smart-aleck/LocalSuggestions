@@ -1,9 +1,9 @@
 package com.fabs.dao.users;
 
-import com.fabs.model.users.UserAccess;
+import com.fabs.model.users.Access;
 
 public interface UserAccessDAO {
-    void saveOrUpdate(UserAccess userAccess);
+    void saveOrUpdate(Access access);
 
-    UserAccess find(Integer id);
+    Access find(Integer id);
 }

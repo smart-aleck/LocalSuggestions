@@ -7,9 +7,9 @@ import com.fabs.dao.users.UserAccessDAO;
 import com.fabs.dao.users.UserDAO;
 import com.fabs.model.core.Audit;
 import com.fabs.model.core.UserDecorationOverride;
+import com.fabs.model.users.Access;
 import com.fabs.model.users.Decoration;
 import com.fabs.model.users.User;
-import com.fabs.model.users.UserAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +42,10 @@ public class TestService {
         return decoration;
     }
 
-    public UserAccess runUserAccessTest(UserAccess userAccess){
-        userAccess = userAccessDAO.find(userAccess.getId());
-        userAccessDAO.saveOrUpdate(userAccess);
-        return userAccess;
+    public Access runUserAccessTest(Access access){
+        access = userAccessDAO.find(access.getId());
+        userAccessDAO.saveOrUpdate(access);
+        return access;
     }
 
     public User runUserTest(User user){

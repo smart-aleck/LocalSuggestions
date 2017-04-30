@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Table(name = "user", schema = "local_suggestions_users")
 public class User {
     private Integer id;
-    private UserAccess userAccess;
+    private Access access;
     private String displayName;
     private String firstName;
     private String lastName;
@@ -33,12 +33,12 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "userAccessId", referencedColumnName = "id")
-    public UserAccess getUserAccess() {
-        return userAccess;
+    public Access getAccess() {
+        return access;
     }
 
-    public void setUserAccess(UserAccess userAccess) {
-        this.userAccess = userAccess;
+    public void setAccess(Access access) {
+        this.access = access;
     }
 
     @Basic
@@ -159,7 +159,7 @@ public class User {
         if (updateTimestamp != null ? !updateTimestamp.equals(user.updateTimestamp) : user.updateTimestamp != null)
             return false;
         if (isDeleted != null ? !isDeleted.equals(user.isDeleted) : user.isDeleted != null) return false;
-        if (userAccess != null ? !userAccess.equals(user.userAccess) : user.userAccess != null) return false;
+        if (access != null ? !access.equals(user.access) : user.access != null) return false;
         if (id != null ? !id.equals(user.id) : user.id != null) return false;
 
         return true;
@@ -177,7 +177,7 @@ public class User {
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (updateTimestamp != null ? updateTimestamp.hashCode() : 0);
         result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
-        result = 31 * result + (userAccess != null ? userAccess.hashCode() : 0);
+        result = 31 * result + (access != null ? access.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
@@ -186,7 +186,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userAccess=" + userAccess +
+                ", access=" + access +
                 ", displayName='" + displayName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

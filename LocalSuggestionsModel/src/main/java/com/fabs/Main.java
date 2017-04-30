@@ -2,9 +2,9 @@ package com.fabs;
 
 import com.fabs.model.core.Audit;
 import com.fabs.model.core.UserDecorationOverride;
+import com.fabs.model.users.Access;
 import com.fabs.model.users.Decoration;
 import com.fabs.model.users.User;
-import com.fabs.model.users.UserAccess;
 import com.fabs.service.TestService;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -31,19 +31,19 @@ public class Main {
         audit.setDescription("TestDescription");
         audit.setLocation(new GeometryFactory().createPoint(new Coordinate(5,2.5)));
 
-        UserAccess userAccess = new UserAccess();
-        userAccess.setId(1);
-        userAccess.setUserAccessText("BASIC");
+        Access access = new Access();
+        access.setId(1);
+        access.setAccessText("BASIC");
 
         TestService testService = (TestService) context.getBean("testService");
         testService.runAuditTest(audit);
-        userAccess = testService.runUserAccessTest(userAccess);
+        access = testService.runUserAccessTest(access);
 
         Decoration decoration = new Decoration();
         decoration.setId(1);
         decoration.setDecorationName("locationUpdate");
         decoration.setDefaultValue("false");
-        decoration.setUserAccess(userAccess);
+        decoration.setAccess(access);
 
         testService.runDecorationTest(decoration);
 
@@ -52,7 +52,7 @@ public class Main {
         user.setEmail("ali.asghar@localsuggestions.com");
         user.setPasswordHash("passwordHash");
         user.setPasswordSalt("passwordSalt");
-        user.setUserAccess(userAccess);
+        user.setAccess(access);
 
         user = testService.runUserTest(user);
 
@@ -66,7 +66,7 @@ public class Main {
         userDecorationOverride = testService.runUserDecorationOverrideTest(userDecorationOverride);
 
         logger.debug(audit.toString());
-        logger.debug(userAccess.toString());
+        logger.debug(access.toString());
         logger.debug(decoration.toString());
         logger.debug(user.toString());
         logger.debug(userDecorationOverride.toString());

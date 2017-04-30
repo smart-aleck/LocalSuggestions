@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user_access", schema = "local_suggestions_users")
-public class UserAccess {
+@Table(name = "access", schema = "local_suggestions_users")
+public class Access {
     private Integer id;
-    private String userAccessText;
+    private String accessText;
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
@@ -24,13 +24,13 @@ public class UserAccess {
     }
 
     @Basic
-    @Column(name = "userAccessText")
-    public String getUserAccessText() {
-        return userAccessText;
+    @Column(name = "accessText")
+    public String getAccessText() {
+        return accessText;
     }
 
-    public void setUserAccessText(String userAccessText) {
-        this.userAccessText = userAccessText;
+    public void setAccessText(String accessText) {
+        this.accessText = accessText;
     }
 
     @Basic
@@ -68,10 +68,10 @@ public class UserAccess {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserAccess that = (UserAccess) o;
+        Access that = (Access) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (userAccessText != null ? !userAccessText.equals(that.userAccessText) : that.userAccessText != null)
+        if (accessText != null ? !accessText.equals(that.accessText) : that.accessText != null)
             return false;
         if (version != null ? !version.equals(that.version) : that.version != null) return false;
         if (updateTimestamp != null ? !updateTimestamp.equals(that.updateTimestamp) : that.updateTimestamp != null)
@@ -84,7 +84,7 @@ public class UserAccess {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (userAccessText != null ? userAccessText.hashCode() : 0);
+        result = 31 * result + (accessText != null ? accessText.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (updateTimestamp != null ? updateTimestamp.hashCode() : 0);
         result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
@@ -93,9 +93,9 @@ public class UserAccess {
 
     @Override
     public String toString() {
-        return "UserAccess{" +
+        return "Access{" +
                 "id=" + id +
-                ", userAccessText='" + userAccessText + '\'' +
+                ", accessText='" + accessText + '\'' +
                 ", version=" + version +
                 ", updatedTimestamp=" + updateTimestamp +
                 ", isDeleted=" + isDeleted +
