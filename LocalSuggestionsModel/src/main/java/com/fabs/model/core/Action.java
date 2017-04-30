@@ -2,6 +2,7 @@ package com.fabs.model.core;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "action", schema = "local_suggestions")
@@ -11,6 +12,7 @@ public class Action {
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
+    private Set<SuggestionAction> suggestionActions;
 
     @Basic
     @Column(name = "version")
@@ -61,6 +63,15 @@ public class Action {
 
     public void setUpdateTimestamp(Timestamp updateTimestamp) {
         this.updateTimestamp = updateTimestamp;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "action")
+    public Set<SuggestionAction> getSuggestionActions() {
+        return this.suggestionActions;
+    }
+
+    public void setSuggestionActions(Set<SuggestionAction> suggestionActions) {
+        this.suggestionActions = suggestionActions;
     }
 
     @Override

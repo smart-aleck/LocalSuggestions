@@ -3,6 +3,7 @@ package com.fabs.model.users;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "user", schema = "local_suggestions_users")
@@ -19,6 +20,9 @@ public class User {
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
+    private Set<Address> addresses;
+    private Set<Phone> phones;
+    private Set<Profile> profiles;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -139,6 +143,33 @@ public class User {
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    public Set<Address> getAddresses() {
+        return this.addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    public Set<Phone> getPhones() {
+        return this.phones;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    public Set<Profile> getProfiles() {
+        return this.profiles;
+    }
+
+    public void setProfiles(Set<Profile> profiles) {
+        this.profiles = profiles;
     }
 
     @Override

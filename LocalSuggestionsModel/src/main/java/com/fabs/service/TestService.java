@@ -3,7 +3,7 @@ package com.fabs.service;
 import com.fabs.dao.core.AuditDAO;
 import com.fabs.dao.core.UserDecorationOverrideDAO;
 import com.fabs.dao.users.DecorationDAO;
-import com.fabs.dao.users.UserAccessDAO;
+import com.fabs.dao.users.AccessDAO;
 import com.fabs.dao.users.UserDAO;
 import com.fabs.model.core.Audit;
 import com.fabs.model.core.UserDecorationOverride;
@@ -23,7 +23,7 @@ public class TestService {
     DecorationDAO decorationDAO;
 
     @Autowired
-    UserAccessDAO userAccessDAO;
+    AccessDAO accessDAO;
 
     @Autowired
     UserDAO userDAO;
@@ -38,13 +38,13 @@ public class TestService {
 
     public Decoration runDecorationTest(Decoration decoration){
         decoration = decorationDAO.find(decoration.getId());
-        decorationDAO.saveOrUpdate(decoration);
+        //decorationDAO.saveOrUpdate(decoration);
         return decoration;
     }
 
-    public Access runUserAccessTest(Access access){
-        access = userAccessDAO.find(access.getId());
-        userAccessDAO.saveOrUpdate(access);
+    public Access runAccessTest(Access access){
+        access = accessDAO.find(access.getId());
+        //accessDAO.saveOrUpdate(access);
         return access;
     }
 

@@ -2,7 +2,7 @@ package com.fabs.model.users;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "access", schema = "local_suggestions_users")
@@ -12,7 +12,8 @@ public class Access {
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
-//    private List<Decoration> decorations;
+    private Set<Decoration> decorations;
+    private Set<User> users;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -65,14 +66,23 @@ public class Access {
         isDeleted = deleted;
     }
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "decoration")
-//    public List<Decoration> getDecorations() {
-//        return this.decorations;
-//    }
-//
-//    public void setDecorations(List<Decoration> decorations) {
-//        decorations = decorations;
-//    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "access")
+    public Set<Decoration> getDecorations() {
+        return this.decorations;
+    }
+
+    public void setDecorations(Set<Decoration> decorations) {
+        this.decorations = decorations;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "access")
+    public Set<User> getUsers() {
+        return this.users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
     @Override
     public boolean equals(Object o) {

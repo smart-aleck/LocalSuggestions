@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "suggestion", schema = "local_suggestions")
@@ -22,6 +23,10 @@ public class Suggestion {
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
+    private Set<SuggestionTag> suggestionTags;
+    private Set<SuggestionAction> suggestionActions;
+    private Set<Comment> comments;
+    private Set<Attachment> attachments;
 
     @Basic
     @Column(name = "userId")
@@ -154,6 +159,42 @@ public class Suggestion {
 
     public void setUpdateTimestamp(Timestamp updateTimestamp) {
         this.updateTimestamp = updateTimestamp;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "suggestion")
+    public Set<SuggestionTag> getSuggestionTags() {
+        return this.suggestionTags;
+    }
+
+    public void setSuggestionTags(Set<SuggestionTag> suggestionTags) {
+        this.suggestionTags = suggestionTags;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "suggestion")
+    public Set<SuggestionAction> getSuggestionActions() {
+        return this.suggestionActions;
+    }
+
+    public void setSuggestionActions(Set<SuggestionAction> suggestionActions) {
+        this.suggestionActions = suggestionActions;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "suggestion")
+    public Set<Comment> getComments() {
+        return this.comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "suggestion")
+    public Set<Attachment> getAttachments() {
+        return this.attachments;
+    }
+
+    public void setAttachments(Set<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     @Override
