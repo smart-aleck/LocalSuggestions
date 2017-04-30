@@ -1,7 +1,9 @@
 package com.fabs;
 
 import com.fabs.model.core.Audit;
+import com.fabs.model.core.UserDecorationOverride;
 import com.fabs.model.users.Decoration;
+import com.fabs.model.users.User;
 import com.fabs.model.users.UserAccess;
 import com.fabs.service.TestService;
 import com.vividsolutions.jts.geom.Coordinate;
@@ -45,9 +47,29 @@ public class Main {
 
         testService.runDecorationTest(decoration);
 
+        User user = new User();
+        user.setId(1);
+        user.setEmail("ali.asghar@localsuggestions.com");
+        user.setPasswordHash("passwordHash");
+        user.setPasswordSalt("passwordSalt");
+        user.setUserAccess(userAccess);
+
+        user = testService.runUserTest(user);
+
+        UserDecorationOverride userDecorationOverride = new UserDecorationOverride();
+        userDecorationOverride.setId(1);
+        userDecorationOverride.setDecorationName("locationUpdate");
+        userDecorationOverride.setDefaultValue("false");
+        userDecorationOverride.setDecorationId(decoration.getId());
+        userDecorationOverride.setUserId(user.getId());
+
+        userDecorationOverride = testService.runUserDecorationOverrideTest(userDecorationOverride);
+
         logger.debug(audit.toString());
         logger.debug(userAccess.toString());
         logger.debug(decoration.toString());
+        logger.debug(user.toString());
+        logger.debug(userDecorationOverride.toString());
 
         context.close();
     }

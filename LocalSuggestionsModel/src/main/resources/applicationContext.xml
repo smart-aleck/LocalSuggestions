@@ -27,6 +27,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>com.fabs.model.core.Audit</value>
+                <value>com.fabs.model.core.UserDecorationOverride</value>
             </list>
         </property>
         <property name="hibernateProperties">
