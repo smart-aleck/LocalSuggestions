@@ -38,13 +38,16 @@ public class Main {
         userAccess = testService.runUserAccessTest(userAccess);
 
         Decoration decoration = new Decoration();
+        decoration.setId(1);
         decoration.setDecorationName("locationUpdate");
         decoration.setDefaultValue("false");
-        decoration.setUserAccessId(userAccess);
+        decoration.setUserAccess(userAccess);
 
         testService.runDecorationTest(decoration);
 
         logger.debug(audit.toString());
+        logger.debug(userAccess.toString());
+        logger.debug(decoration.toString());
 
         context.close();
     }

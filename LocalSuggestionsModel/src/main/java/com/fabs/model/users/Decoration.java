@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Table(name = "decoration", schema = "local_suggestions_users")
 public class Decoration {
     private Integer id;
-    private UserAccess userAccessId;
+    private UserAccess userAccess;
     private String decorationName;
     private String defaultValue;
     private Integer version = 0;
@@ -27,12 +27,12 @@ public class Decoration {
 
     @ManyToOne
     @JoinColumn(name = "userAccessId", referencedColumnName = "id")
-    public UserAccess getUserAccessId() {
-        return userAccessId;
+    public UserAccess getUserAccess() {
+        return userAccess;
     }
 
-    public void setUserAccessId(UserAccess userAccessId) {
-        this.userAccessId = userAccessId;
+    public void setUserAccess(UserAccess userAccessId) {
+        this.userAccess = userAccessId;
     }
 
     @Basic
@@ -119,7 +119,7 @@ public class Decoration {
     public String toString() {
         return "Decoration{" +
                 "id=" + id +
-                ", userAccessId=" + userAccessId +
+                ", userAccess=" + userAccess +
                 ", decorationName='" + decorationName + '\'' +
                 ", defaultValue='" + defaultValue + '\'' +
                 ", version=" + version +

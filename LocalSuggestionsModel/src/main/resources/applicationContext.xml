@@ -44,6 +44,10 @@
             <list>
                 <value>com.fabs.model.users.UserAccess</value>
                 <value>com.fabs.model.users.Decoration</value>
+                <value>com.fabs.model.users.User</value>
+                <value>com.fabs.model.users.Address</value>
+                <value>com.fabs.model.users.Phone</value>
+                <value>com.fabs.model.users.Profile</value>
             </list>
         </property>
         <property name="hibernateProperties">

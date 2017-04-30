@@ -28,7 +28,7 @@ public class TestService {
 
 //    //@Transactional("transactionManagerUsers")
     public void runDecorationTest(Decoration decoration){
-        //decoration = decorationDAO.find(decoration.getId());
+        decoration = decorationDAO.find(decoration.getId());
         decorationDAO.saveOrUpdate(decoration);
     }
 
