@@ -14,7 +14,6 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String passwordSalt;
     private String passwordHash;
     private Date dateJoined;
     private Integer version = 0;
@@ -84,17 +83,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    @Basic
-    @Column(name = "passwordSalt")
-    public String getPasswordSalt() {
-        return passwordSalt;
-    }
-
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
-    }
-
     @Basic
     @Column(name = "passwordHash")
     public String getPasswordHash() {
@@ -183,7 +171,6 @@ public class User {
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (passwordSalt != null ? !passwordSalt.equals(user.passwordSalt) : user.passwordSalt != null) return false;
         if (passwordHash != null ? !passwordHash.equals(user.passwordHash) : user.passwordHash != null) return false;
         if (dateJoined != null ? !dateJoined.equals(user.dateJoined) : user.dateJoined != null) return false;
         if (version != null ? !version.equals(user.version) : user.version != null) return false;
@@ -202,7 +189,6 @@ public class User {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (passwordSalt != null ? passwordSalt.hashCode() : 0);
         result = 31 * result + (passwordHash != null ? passwordHash.hashCode() : 0);
         result = 31 * result + (dateJoined != null ? dateJoined.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
@@ -222,7 +208,6 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", passwordSalt='" + passwordSalt + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
                 ", dateJoined=" + dateJoined +
                 ", version=" + version +
