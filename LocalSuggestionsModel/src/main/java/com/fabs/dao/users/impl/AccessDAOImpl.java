@@ -25,6 +25,10 @@ public class AccessDAOImpl implements AccessDAO {
         sessionFactory.getCurrentSession().saveOrUpdate(access);
     }
 
+    public void delete(Integer id) {
+
+    }
+
     public Access find(Integer id) {
         return sessionFactory.getCurrentSession().find(Access.class, id);
     }

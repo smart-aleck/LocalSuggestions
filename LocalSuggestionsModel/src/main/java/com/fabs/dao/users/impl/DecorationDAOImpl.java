@@ -25,6 +25,10 @@ public class DecorationDAOImpl implements DecorationDAO {
         sessionFactory.getCurrentSession().saveOrUpdate(decoration);
     }
 
+    public void delete(Integer id) {
+
+    }
+
     public Decoration find(Integer id) {
         return sessionFactory.getCurrentSession().find(Decoration.class, id);
     }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 @Repository
 @Transactional("transactionManagerUsers")
 public class UserDAOImpl implements UserDAO {
@@ -25,7 +27,15 @@ public class UserDAOImpl implements UserDAO {
         sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
 
+    public void delete(Integer id) {
+
+    }
+
     public User find(Integer id) {
         return sessionFactory.getCurrentSession().find(User.class, id);
+    }
+
+    public Set<User> find(Set<Integer> ids) {
+        return null;
     }
 }
