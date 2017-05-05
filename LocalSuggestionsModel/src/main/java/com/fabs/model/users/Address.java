@@ -15,6 +15,7 @@ public class Address {
     private String addressLine3;
     private String addressLine4;
     private String zipOrPostCode;
+    private String city;
     private String countyOrProvince;
     private String country;
     private Integer version = 0;
@@ -102,6 +103,16 @@ public class Address {
     }
 
     @Basic
+    @Column(name = "city")
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
     @Column(name = "countyOrProvince")
     public String getCountyOrProvince() {
         return countyOrProvince;
@@ -182,6 +193,8 @@ public class Address {
             return false;
         if (zipOrPostCode != null ? !zipOrPostCode.equals(address.zipOrPostCode) : address.zipOrPostCode != null)
             return false;
+        if (city != null ? !city.equals(address.city) : address.city != null)
+            return false;
         if (countyOrProvince != null ? !countyOrProvince.equals(address.countyOrProvince) : address.countyOrProvince != null)
             return false;
         if (country != null ? !country.equals(address.country) : address.country != null) return false;
@@ -204,6 +217,7 @@ public class Address {
         result = 31 * result + (addressLine3 != null ? addressLine3.hashCode() : 0);
         result = 31 * result + (addressLine4 != null ? addressLine4.hashCode() : 0);
         result = 31 * result + (zipOrPostCode != null ? zipOrPostCode.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (countyOrProvince != null ? countyOrProvince.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
@@ -225,6 +239,7 @@ public class Address {
                 ", addressLine3='" + addressLine3 + '\'' +
                 ", addressLine4='" + addressLine4 + '\'' +
                 ", zipOrPostCode='" + zipOrPostCode + '\'' +
+                ", city='" + city + '\'' +
                 ", countyOrProvince='" + countyOrProvince + '\'' +
                 ", country='" + country + '\'' +
                 ", version=" + version +
