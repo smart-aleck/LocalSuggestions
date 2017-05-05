@@ -52,6 +52,7 @@ CREATE TABLE `address` (
   `addressLine4` varchar(45) DEFAULT NULL,
   `zipOrPostCode` varchar(45) DEFAULT NULL,
   `countyOrProvince` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
   `country` varchar(45) DEFAULT NULL,
   `version` int(11) NOT NULL,
   `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
