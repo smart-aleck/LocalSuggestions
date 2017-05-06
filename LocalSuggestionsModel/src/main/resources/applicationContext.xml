@@ -37,6 +37,7 @@
     </jdbc:initialize-database>
     <!--====================================================-->
 
+    <!--SESSION FACTORY - local_suggestions-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="annotatedClasses">
@@ -63,6 +64,8 @@
             </props>
         </property>
     </bean>
+
+    <!--SESSION FACTORY - local_suggestions_users-->
     <bean id="sessionFactoryUsers" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSourceUsers"></property>
         <property name="annotatedClasses">
@@ -85,6 +88,7 @@
         </property>
     </bean>
 
+    <!--TRANSACTION MANAGERS-->
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
           p:sessionFactory-ref="sessionFactory">
         <qualifier value="transactionManager"/>
@@ -93,4 +97,5 @@
           p:sessionFactory-ref="sessionFactoryUsers">
         <qualifier value="transactionManagerUsers"/>
     </bean>
+
 </beans>

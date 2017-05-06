@@ -4,11 +4,13 @@ import com.fabs.model.core.Audit;
 import com.fabs.model.users.Access;
 import com.fabs.model.users.Decoration;
 import com.fabs.model.users.User;
+import com.fabs.service.DAOService;
 import com.fabs.service.TestService;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -17,25 +19,38 @@ public class Main {
 
     private final static Logger logger = LogManager.getLogger();
 
-
     public static void main(String[] args){
         logger.info("Loading Spring applicationContext");
-        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        try(ConfigurableApplicationContext
+                context = new ClassPathXmlApplicationContext("applicationContext.xml")){
 
-        Audit audit = new Audit();
-        audit.setUserId(12);
-        audit.setIp("127.0.0.1");
-        audit.setActivity("Testing");
-        audit.setDevice("MAC");
-        audit.setDescription("TestDescription");
-        audit.setLocation(new GeometryFactory().createPoint(new Coordinate(5,2.5)));
+            DAOService daoService = (DAOService)context.getBean("daoService");
+            TestService testService = (TestService) context.getBean("testService");
 
-//        Access access = new Access();
-//        access.setId(1);
-//        access.setAccessText("BASIC");
+            Access access;
+            access = daoService.find(4);
+            daoService.delete(access);
 
-        TestService testService = (TestService) context.getBean("testService");
-        testService.runAuditTest(audit);
+            //access = new Access();
+            //access.setDeleted(null);
+            //access.setAccessText("TEST-ACCESS");
+            //daoService.update(access);
+
+            Audit audit = new Audit();
+            audit.setUserId(12);
+            audit.setIp("127.0.0.1");
+            audit.setActivity("Testing");
+            audit.setDevice("MAC");
+            audit.setDescription("TestDescription");
+            audit.setLocation(new GeometryFactory().createPoint(new Coordinate(5,2.5)));
+
+//        TestService testService = (TestService) context.getBean("testService");
+            testService.runAuditTest(audit);
+
+//
+//        DAOService daoService = (DAOService) context.getBean("daoService");
+//        testService.runAuditTest(audit);
+
 //        access = testService.runAccessTest(access);
 
 //        Decoration decoration = new Decoration();
@@ -69,7 +84,6 @@ public class Main {
 //        logger.debug(decoration.toString());
 //        logger.debug(user.toString());
 //        logger.debug(userDecorationOverride.toString());
-
-        context.close();
+        }
     }
 }

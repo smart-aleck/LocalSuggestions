@@ -7,6 +7,7 @@ import com.fabs.dao.users.AccessDAO;
 import com.fabs.dao.users.UserDAO;
 import com.fabs.model.core.Audit;
 import com.fabs.model.core.UserDecorationOverride;
+import com.fabs.model.exceptions.NotFoundException;
 import com.fabs.model.users.Access;
 import com.fabs.model.users.Decoration;
 import com.fabs.model.users.User;
@@ -42,7 +43,7 @@ public class TestService {
         return decoration;
     }
 
-    public Access runAccessTest(Access access){
+    public Access runAccessTest(Access access) throws NotFoundException{
         access = accessDAO.find(access.getId());
         //accessDAO.saveOrUpdate(access);
         return access;
