@@ -119,8 +119,8 @@ public class User {
         return updateTimestamp;
     }
 
-    public void setUpdateTimestamp(Timestamp updatedTimestamp) {
-        this.updateTimestamp = updatedTimestamp;
+    public void setUpdateTimestamp(Timestamp updateTimestamp) {
+        this.updateTimestamp = updateTimestamp;
     }
 
     @Basic
@@ -211,7 +211,7 @@ public class User {
                 ", passwordHash='" + passwordHash + '\'' +
                 ", dateJoined=" + dateJoined +
                 ", version=" + version +
-                ", updatedTimestamp=" + updateTimestamp +
+                ", updateTimestamp=" + updateTimestamp +
                 ", isDeleted=" + isDeleted +
                 '}';
     }

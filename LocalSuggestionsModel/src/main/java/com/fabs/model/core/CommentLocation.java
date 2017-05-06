@@ -12,8 +12,8 @@ public class CommentLocation {
     private Comment comment;
     private Point location;
     private Integer version;
-    private Timestamp updatedTimestamp;
-    private Boolean isDeleted;
+    private Timestamp updateTimestamp = null;
+    private Boolean isDeleted = false;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -57,13 +57,13 @@ public class CommentLocation {
     }
 
     @Basic
-    @Column(name = "updatedTimestamp")
-    public Timestamp getUpdatedTimestamp() {
-        return updatedTimestamp;
+    @Column(name = "updateTimestamp")
+    public Timestamp getUpdateTimestamp() {
+        return updateTimestamp;
     }
 
-    public void setUpdatedTimestamp(Timestamp updatedTimestamp) {
-        this.updatedTimestamp = updatedTimestamp;
+    public void setUpdateTimestamp(Timestamp updateTimestamp) {
+        this.updateTimestamp = updateTimestamp;
     }
 
     @Basic
@@ -87,7 +87,7 @@ public class CommentLocation {
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (version != null ? !version.equals(that.version) : that.version != null) return false;
-        if (updatedTimestamp != null ? !updatedTimestamp.equals(that.updatedTimestamp) : that.updatedTimestamp != null)
+        if (updateTimestamp != null ? !updateTimestamp.equals(that.updateTimestamp) : that.updateTimestamp != null)
             return false;
         if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
 
@@ -100,7 +100,7 @@ public class CommentLocation {
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + (updatedTimestamp != null ? updatedTimestamp.hashCode() : 0);
+        result = 31 * result + (updateTimestamp != null ? updateTimestamp.hashCode() : 0);
         result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
         return result;
     }
@@ -112,7 +112,7 @@ public class CommentLocation {
                 ", comment=" + comment +
                 ", location=" + location +
                 ", version=" + version +
-                ", updatedTimestamp=" + updatedTimestamp +
+                ", updateTimestamp=" + updateTimestamp +
                 ", isDeleted=" + isDeleted +
                 '}';
     }

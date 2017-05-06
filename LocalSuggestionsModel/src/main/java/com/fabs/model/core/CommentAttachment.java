@@ -14,8 +14,8 @@ public class CommentAttachment {
     private Attachment attachment;
     private Point location;
     private Integer version;
-    private Timestamp updateTimestamp;
-    private Boolean isDeleted;
+    private Timestamp updateTimestamp = null;
+    private Boolean isDeleted = false;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

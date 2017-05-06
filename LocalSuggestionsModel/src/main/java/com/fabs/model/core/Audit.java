@@ -13,7 +13,7 @@ public class Audit {
     private Integer userId;
     private String ip;
     private String device;
-    private Timestamp timestamp;
+    private Timestamp timestamp = null;
     private Point location;
     private String activity;
     private String description;

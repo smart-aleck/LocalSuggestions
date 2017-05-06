@@ -52,8 +52,8 @@ public class Access {
         return updateTimestamp;
     }
 
-    public void setUpdateTimestamp(Timestamp updatedTimestamp) {
-        this.updateTimestamp = updatedTimestamp;
+    public void setUpdateTimestamp(Timestamp updateTimestamp) {
+        this.updateTimestamp = updateTimestamp;
     }
 
     @Basic
@@ -118,7 +118,7 @@ public class Access {
                 "id=" + id +
                 ", accessText='" + accessText + '\'' +
                 ", version=" + version +
-                ", updatedTimestamp=" + updateTimestamp +
+                ", updateTimestamp=" + updateTimestamp +
                 ", isDeleted=" + isDeleted +
                 '}';
     }

@@ -182,7 +182,7 @@ CREATE TABLE `comment_location` (
   `commentId` bigint(20) NOT NULL,
   `location` point NOT NULL,
   `version` int(11) NOT NULL,
-  `updatedTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `comment-comment_location-id_idx` (`commentId`),
