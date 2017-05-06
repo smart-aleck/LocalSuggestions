@@ -5,11 +5,12 @@ import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;
 import com.fabs.model.users.Profile;
 import org.hibernate.SessionFactory;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.PersistenceException;
 
 @Repository
 @Transactional(value = "transactionManagerUsers", rollbackFor = Exception.class)
@@ -27,20 +28,16 @@ public class ProfileDAOImpl implements ProfileDAO {
             profile.setVersion(profile.getVersion() + 1);
             profile.setUpdateTimestamp(null);
             sessionFactory.getCurrentSession().saveOrUpdate(profile);
+            sessionFactory.getCurrentSession().flush();
         }
-        catch(ConstraintViolationException exception){
+        catch(PersistenceException exception){
             throw new MissingDataException(profile, exception);
         }
     }
 
     public void delete(Profile profile) throws MissingDataException {
-        try {
-            profile.setDeleted(true);
-            saveOrUpdate(profile);
-        }
-        catch(ConstraintViolationException exception){
-            throw new MissingDataException(profile, exception);
-        }
+        profile.setDeleted(true);
+        saveOrUpdate(profile);
     }
 
     public Profile find(Integer id) throws NotFoundException {

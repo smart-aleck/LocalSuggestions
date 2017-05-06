@@ -5,12 +5,12 @@ import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;
 import com.fabs.model.users.User;
 import org.hibernate.SessionFactory;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,20 +31,16 @@ public class UserDAOImpl implements UserDAO {
             user.setVersion(user.getVersion() + 1);
             user.setUpdateTimestamp(null);
             sessionFactory.getCurrentSession().saveOrUpdate(user);
+            sessionFactory.getCurrentSession().flush();
         }
-        catch(ConstraintViolationException exception){
+        catch(PersistenceException exception){
             throw new MissingDataException(user, exception);
         }
     }
 
     public void delete(User user) throws MissingDataException {
-        try {
-            user.setDeleted(true);
-            saveOrUpdate(user);
-        }
-        catch(ConstraintViolationException exception){
-            throw new MissingDataException(user, exception);
-        }
+        user.setDeleted(true);
+        saveOrUpdate(user);
     }
 
     public User find(Integer id) throws NotFoundException  {
@@ -56,15 +52,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     public Set<User> find(Set<Integer> ids) {
-
         CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
-
         CriteriaQuery<User> criteria = builder.createQuery(User.class);
-        Root<User> userRoot = criteria.from(User.class);
-        criteria.select(userRoot);
-        criteria.where(userRoot.get("id").in(ids));
+        Root<User> root = criteria.from(User.class);
+        criteria.select(root);
+        criteria.where(root.get("id").in(ids));
 
-        return new HashSet<User>(
+        return new HashSet<>(
                 sessionFactory.getCurrentSession().createQuery(criteria).getResultList());
     }
 }

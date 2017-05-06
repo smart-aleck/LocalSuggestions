@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional("transactionManager")
+@Transactional(value = "transactionManager", rollbackFor = Exception.class)
 public class AuditDAOImpl implements AuditDAO {
 
     private SessionFactory sessionFactory;

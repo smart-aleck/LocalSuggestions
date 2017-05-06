@@ -46,7 +46,7 @@ public class TestService {
 
     public Access runAccessTest(Access access) throws NotFoundException{
         access = accessDAO.find(access.getId());
-        //userDAO.saveOrUpdate(access);
+        //suggestionTagDAO.saveOrUpdate(access);
         return access;
     }
 
@@ -56,7 +56,7 @@ public class TestService {
         return user;
     }
 
-    public UserDecorationOverride runUserDecorationOverrideTest(UserDecorationOverride userDecorationOverride){
+    public UserDecorationOverride runUserDecorationOverrideTest(UserDecorationOverride userDecorationOverride) throws MissingDataException, NotFoundException {
         userDecorationOverride = userDecorationOverrideDAO.find(userDecorationOverride.getId());
         userDecorationOverrideDAO.saveOrUpdate(userDecorationOverride);
         return userDecorationOverride;

@@ -1,16 +1,14 @@
 package com.fabs.dao.core;
 
 import com.fabs.model.core.CommentLocation;
-
-import java.util.Set;
+import com.fabs.model.exceptions.MissingDataException;
+import com.fabs.model.exceptions.NotFoundException;
 
 public interface CommentLocationDAO {
 
-    void saveOrUpdate(CommentLocation commentLocation);
+    void saveOrUpdate(CommentLocation commentLocation) throws MissingDataException;
 
-    void saveOrUpdate(Set<CommentLocation> commentLocations);
+    void delete(CommentLocation commentLocation) throws MissingDataException;
 
-    void delete(Integer id);
-
-    CommentLocation find(Integer id);
+    CommentLocation find(Integer id) throws NotFoundException;
 }

@@ -1,16 +1,20 @@
 package com.fabs.dao.core;
 
 import com.fabs.model.core.SuggestionAttachment;
+import com.fabs.model.exceptions.MissingDataException;
+import com.fabs.model.exceptions.NotFoundException;
 
 import java.util.Set;
 
 public interface SuggestionAttachmentDAO {
 
-    void saveOrUpdate(SuggestionAttachment suggestionAttachment);
+    void saveOrUpdate(SuggestionAttachment suggestionAttachment) throws MissingDataException;
 
-    void saveOrUpdate(Set<SuggestionAttachment> suggestionAttachments);
+    void saveOrUpdate(Set<SuggestionAttachment> suggestionAttachments) throws MissingDataException;
 
-    void delete(Integer id);
+    void delete(SuggestionAttachment suggestionAttachment) throws MissingDataException;
 
-    SuggestionAttachment find(Integer id);
+    void delete(Set<SuggestionAttachment> suggestionAttachments) throws MissingDataException;
+
+    SuggestionAttachment find(Long id) throws NotFoundException;
 }

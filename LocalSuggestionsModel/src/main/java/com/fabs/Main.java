@@ -1,6 +1,7 @@
 package com.fabs;
 
 import com.fabs.model.core.Audit;
+import com.fabs.model.core.SuggestionTag;
 import com.fabs.model.users.Access;
 import com.fabs.model.users.Decoration;
 import com.fabs.model.users.User;
@@ -13,6 +14,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.HashSet;
+import java.util.Set;
 
 // https://examples.javacodegeeks.com/enterprise-java/spring/jpaorm/spring-hibernate-mysql-and-maven-showcase/
 public class Main {
@@ -27,9 +31,11 @@ public class Main {
             DAOService daoService = (DAOService)context.getBean("daoService");
             TestService testService = (TestService) context.getBean("testService");
 
-            User user;
-            user = daoService.find(1);
-            //daoService.delete(access);
+            SuggestionTag suggestionTag;
+            suggestionTag = daoService.find(1);
+
+//            daoService.update(suggestionTag);
+            daoService.delete(suggestionTag);
 
             //access = new Access();
             //access.setDeleted(null);
