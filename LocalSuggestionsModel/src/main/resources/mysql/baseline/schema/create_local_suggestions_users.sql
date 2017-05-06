@@ -1,3 +1,4 @@
+DROP SCHEMA local_suggestions_users;
 CREATE DATABASE  IF NOT EXISTS `local_suggestions_users` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `local_suggestions_users`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
@@ -33,6 +34,33 @@ CREATE TABLE `access` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `displayName` varchar(100) DEFAULT NULL,
+  `firstName` varchar(45) DEFAULT NULL,
+  `lastName` varchar(45) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `passwordHash` varchar(256) NOT NULL,
+  `dateJoined` date DEFAULT NULL,
+  `userAccessId` int(11) NOT NULL COMMENT 'User Access: BASIC | PRO | ADMIN',
+  `version` int(11) NOT NULL,
+  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `user_access-user-id_idx` (`userAccessId`),
+  CONSTRAINT `user_access-user-id` FOREIGN KEY (`userAccessId`) REFERENCES `access` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `address`
@@ -126,32 +154,6 @@ CREATE TABLE `profile` (
   CONSTRAINT `user-profile-id` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `displayName` varchar(100) DEFAULT NULL,
-  `firstName` varchar(45) DEFAULT NULL,
-  `lastName` varchar(45) DEFAULT NULL,
-  `email` varchar(100) NOT NULL,
-  `passwordHash` varchar(256) NOT NULL,
-  `dateJoined` date DEFAULT NULL,
-  `userAccessId` int(11) NOT NULL COMMENT 'User Access: BASIC | PRO | ADMIN',
-  `version` int(11) NOT NULL,
-  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `user_access-user-id_idx` (`userAccessId`),
-  CONSTRAINT `user_access-user-id` FOREIGN KEY (`userAccessId`) REFERENCES `access` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

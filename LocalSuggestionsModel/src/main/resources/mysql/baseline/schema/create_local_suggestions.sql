@@ -1,3 +1,4 @@
+DROP SCHEMA local_suggestions;
 -- Dump completed on 2017-05-06  0:43:07
 CREATE DATABASE  IF NOT EXISTS `local_suggestions` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `local_suggestions`;
@@ -76,6 +77,53 @@ CREATE TABLE `audit` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `user_decoration_override`
+--
+
+DROP TABLE IF EXISTS `user_decoration_override`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_decoration_override` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `decorationId` int(11) NOT NULL COMMENT 'User access will be part of the decoration',
+  `decorationName` varchar(45) DEFAULT NULL COMMENT 'User Decoration (e.g. BASIC)\nlocationUpdate: True \nsendSuggestions: 3/month\ndefaultSuggestionExpiration: 1week\npromotedSuggestions: 0/month',
+  `defaultValue` varchar(45) DEFAULT NULL,
+  `version` int(11) NOT NULL,
+  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `user_decoration-user_decoration_override-user_idx` (`decorationName`,`decorationId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
+-- Table structure for table `suggestion`
+--
+
+DROP TABLE IF EXISTS `suggestion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `suggestion` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `subject` varchar(100) NOT NULL,
+  `content` text,
+  `expirationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `suggestionType` varchar(45) DEFAULT NULL COMMENT 'SuggestionType: QUESTION | POST',
+  `category` varchar(45) DEFAULT NULL,
+  `location` point NOT NULL,
+  `displayLocation` point DEFAULT NULL COMMENT 'For user privacy i.e. Location on screen is different to the one actually posted',
+  `version` int(11) NOT NULL,
+  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `comment`
 --
 
@@ -139,31 +187,6 @@ CREATE TABLE `comment_location` (
   PRIMARY KEY (`id`),
   KEY `comment-comment_location-id_idx` (`commentId`),
   CONSTRAINT `comment-comment_location-id` FOREIGN KEY (`commentId`) REFERENCES `comment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `suggestion`
---
-
-DROP TABLE IF EXISTS `suggestion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `suggestion` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
-  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `subject` varchar(100) NOT NULL,
-  `content` text,
-  `expirationTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `suggestionType` varchar(45) DEFAULT NULL COMMENT 'SuggestionType: QUESTION | POST',
-  `category` varchar(45) DEFAULT NULL,
-  `location` point NOT NULL,
-  `displayLocation` point DEFAULT NULL COMMENT 'For user privacy i.e. Location on screen is different to the one actually posted',
-  `version` int(11) NOT NULL,
-  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -235,27 +258,6 @@ CREATE TABLE `suggestion_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `user_decoration_override`
---
-
-DROP TABLE IF EXISTS `user_decoration_override`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_decoration_override` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
-  `decorationId` int(11) NOT NULL COMMENT 'User access will be part of the decoration',
-  `decorationName` varchar(45) DEFAULT NULL COMMENT 'User Decoration (e.g. BASIC)\nlocationUpdate: True \nsendSuggestions: 3/month\ndefaultSuggestionExpiration: 1week\npromotedSuggestions: 0/month',
-  `defaultValue` varchar(45) DEFAULT NULL,
-  `version` int(11) NOT NULL,
-  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `user_decoration-user_decoration_override-user_idx` (`decorationName`,`decorationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
