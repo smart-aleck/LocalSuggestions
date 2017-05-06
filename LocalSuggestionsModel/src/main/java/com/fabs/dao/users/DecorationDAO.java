@@ -1,12 +1,14 @@
 package com.fabs.dao.users;
 
+import com.fabs.model.exceptions.MissingDataException;
+import com.fabs.model.exceptions.NotFoundException;
 import com.fabs.model.users.Decoration;
 
 public interface DecorationDAO {
 
-    void saveOrUpdate(Decoration decoration);
+    void saveOrUpdate(Decoration decoration) throws MissingDataException;
 
-    void delete(Integer id);
+    void delete(Decoration decoration) throws MissingDataException;
 
-    Decoration find(Integer id);
+    Decoration find(Integer id) throws NotFoundException;
 }

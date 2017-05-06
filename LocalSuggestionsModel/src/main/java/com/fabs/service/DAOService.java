@@ -1,30 +1,29 @@
 package com.fabs.service;
 
-import com.fabs.dao.core.AuditDAO;
-import com.fabs.dao.core.UserDecorationOverrideDAO;
-import com.fabs.dao.users.AccessDAO;
-import com.fabs.dao.users.DecorationDAO;
 import com.fabs.dao.users.UserDAO;
-import com.fabs.model.core.Audit;
-import com.fabs.model.core.UserDecorationOverride;
 import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;
-import com.fabs.model.users.Access;
-import com.fabs.model.users.Decoration;
 import com.fabs.model.users.User;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service("daoService")
 public class DAOService {
 
     @Autowired
-    AccessDAO accessDAO;
+    UserDAO userDAO;
 
-    public Access find(Integer id){
+    public User find(Integer id){
         try {
-            return accessDAO.find(id);
+            Set<Integer> ids = new HashSet<Integer>(Arrays.asList(1,2,3,7));
+            Set<User> users = userDAO.find(ids);
+
+            User user = userDAO.find(id);
+            return user;
         }
         catch (NotFoundException e){
             e.printStackTrace();
@@ -32,26 +31,26 @@ public class DAOService {
         }
     }
 
-    public void delete(Access access){
+    public void delete(User access){
         try {
-            accessDAO.delete(access);
+            userDAO.delete(access);
         } catch (MissingDataException e) {
             e.printStackTrace();
         }
     }
 
-    public Access add(Access access){
+    public User add(User access){
         try {
-            accessDAO.saveOrUpdate(access);
+            userDAO.saveOrUpdate(access);
         } catch (MissingDataException e) {
             e.printStackTrace();
         }
         return access;
     }
 
-    public Access update(Access access){
+    public User update(User access){
         try {
-            accessDAO.saveOrUpdate(access);
+            userDAO.saveOrUpdate(access);
         } catch (MissingDataException e) {
             e.printStackTrace();
         }

@@ -27,9 +27,9 @@ public class Main {
             DAOService daoService = (DAOService)context.getBean("daoService");
             TestService testService = (TestService) context.getBean("testService");
 
-            Access access;
-            access = daoService.find(4);
-            daoService.delete(access);
+            User user;
+            user = daoService.find(1);
+            //daoService.delete(access);
 
             //access = new Access();
             //access.setDeleted(null);
