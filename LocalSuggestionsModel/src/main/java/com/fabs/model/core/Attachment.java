@@ -3,11 +3,11 @@ package com.fabs.model.core;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Set;
 
 @Entity
 @Table(name = "attachment", schema = "local_suggestions")
 public class Attachment {
-    private Suggestion suggestion;
     private String attachmentType;
     private String attachmentName;
     private byte[] attachment;
@@ -16,16 +16,8 @@ public class Attachment {
     private Integer version = 0;
     private Timestamp updateTimestamp = null;
     private Boolean isDeleted = false;
-
-    @ManyToOne
-    @JoinColumn(name = "suggestionId", referencedColumnName = "id")
-    public Suggestion getSuggestion() {
-        return suggestion;
-    }
-
-    public void setSuggestion(Suggestion suggestion) {
-        this.suggestion = suggestion;
-    }
+    private Set<SuggestionAttachment> suggestionAttachments;
+    private Set<CommentAttachment> commentAttachments;
 
     @Basic
     @Column(name = "attachmentType")
@@ -108,6 +100,24 @@ public class Attachment {
         this.updateTimestamp = updateTimestamp;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attachment")
+    public Set<SuggestionAttachment> getSuggestionAttachments() {
+        return this.suggestionAttachments;
+    }
+
+    public void setSuggestionAttachments(Set<SuggestionAttachment> suggestionAttachments) {
+        this.suggestionAttachments = suggestionAttachments;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attachment")
+    public Set<CommentAttachment> getCommentAttachments() {
+        return this.commentAttachments;
+    }
+
+    public void setCommentAttachments(Set<CommentAttachment> commentAttachments) {
+        this.commentAttachments = commentAttachments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,7 +125,6 @@ public class Attachment {
 
         Attachment that = (Attachment) o;
 
-        if (suggestion != null ? !suggestion.equals(that.suggestion) : that.suggestion != null) return false;
         if (attachmentType != null ? !attachmentType.equals(that.attachmentType) : that.attachmentType != null)
             return false;
         if (attachmentName != null ? !attachmentName.equals(that.attachmentName) : that.attachmentName != null)
@@ -134,8 +143,7 @@ public class Attachment {
 
     @Override
     public int hashCode() {
-        int result = suggestion != null ? suggestion.hashCode() : 0;
-        result = 31 * result + (attachmentType != null ? attachmentType.hashCode() : 0);
+        int result = attachmentType != null ? attachmentType.hashCode() : 0;
         result = 31 * result + (attachmentName != null ? attachmentName.hashCode() : 0);
         result = 31 * result + Arrays.hashCode(attachment);
         result = 31 * result + (attachmentMetaData != null ? attachmentMetaData.hashCode() : 0);
@@ -149,8 +157,7 @@ public class Attachment {
     @Override
     public String toString() {
         return "Attachment{" +
-                "suggestion=" + suggestion +
-                ", attachmentType='" + attachmentType + '\'' +
+                "attachmentType='" + attachmentType + '\'' +
                 ", attachmentName='" + attachmentName + '\'' +
                 ", attachment=" + Arrays.toString(attachment) +
                 ", attachmentMetaData='" + attachmentMetaData + '\'' +

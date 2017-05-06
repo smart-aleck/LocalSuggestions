@@ -30,8 +30,11 @@
                 <value>com.fabs.model.core.Attachment</value>
                 <value>com.fabs.model.core.Audit</value>
                 <value>com.fabs.model.core.Comment</value>
+                <value>com.fabs.model.core.CommentAttachment</value>
+                <value>com.fabs.model.core.CommentLocation</value>
                 <value>com.fabs.model.core.Suggestion</value>
                 <value>com.fabs.model.core.SuggestionAction</value>
+                <value>com.fabs.model.core.SuggestionAttachment</value>
                 <value>com.fabs.model.core.SuggestionTag</value>
                 <value>com.fabs.model.core.UserDecorationOverride</value>
             </list>

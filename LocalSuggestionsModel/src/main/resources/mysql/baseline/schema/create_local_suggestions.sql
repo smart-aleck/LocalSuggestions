@@ -1,4 +1,4 @@
--- Dump completed on 2017-05-03 23:44:16
+-- Dump completed on 2017-05-06  0:43:07
 CREATE DATABASE  IF NOT EXISTS `local_suggestions` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `local_suggestions`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
@@ -44,7 +44,6 @@ DROP TABLE IF EXISTS `attachment`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `attachment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `suggestionId` bigint(20) NOT NULL,
   `attachmentType` varchar(45) DEFAULT NULL COMMENT 'Attachment Type: Image | Document | PDF | Excel',
   `attachmentName` varchar(100) DEFAULT NULL,
   `attachment` blob,
@@ -52,9 +51,7 @@ CREATE TABLE `attachment` (
   `version` int(11) NOT NULL,
   `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `suggestion-attachmentId-id_idx` (`suggestionId`),
-  CONSTRAINT `suggestion-attachmentId-id` FOREIGN KEY (`suggestionId`) REFERENCES `suggestion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -75,7 +72,7 @@ CREATE TABLE `audit` (
   `activity` varchar(45) DEFAULT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,6 +95,50 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`id`),
   KEY `suggestion-comment-id_idx` (`suggestionId`),
   CONSTRAINT `suggestion-comment-id` FOREIGN KEY (`suggestionId`) REFERENCES `suggestion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `comment_attachment`
+--
+
+DROP TABLE IF EXISTS `comment_attachment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comment_attachment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `commentId` bigint(20) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `attachmentId` bigint(20) NOT NULL,
+  `location` point DEFAULT NULL,
+  `version` int(11) NOT NULL,
+  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `comment-comment_attachment-id_idx` (`commentId`),
+  KEY `attachment-comment_attachment-id_idx` (`attachmentId`),
+  CONSTRAINT `attachment-comment_attachment-id` FOREIGN KEY (`attachmentId`) REFERENCES `attachment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `comment-comment_attachment-id` FOREIGN KEY (`commentId`) REFERENCES `comment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `comment_location`
+--
+
+DROP TABLE IF EXISTS `comment_location`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comment_location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `commentId` bigint(20) NOT NULL,
+  `location` point NOT NULL,
+  `version` int(11) NOT NULL,
+  `updatedTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `comment-comment_location-id_idx` (`commentId`),
+  CONSTRAINT `comment-comment_location-id` FOREIGN KEY (`commentId`) REFERENCES `comment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -151,6 +192,30 @@ CREATE TABLE `suggestion_action` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `suggestion_attachment`
+--
+
+DROP TABLE IF EXISTS `suggestion_attachment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `suggestion_attachment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `suggestionId` bigint(20) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `attachmentId` bigint(20) NOT NULL,
+  `location` point DEFAULT NULL,
+  `version` int(11) NOT NULL,
+  `updateTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `suggestion-suggestion_attachment-id_idx` (`suggestionId`),
+  KEY `attachment-suggestion_attachment-id_idx` (`attachmentId`),
+  CONSTRAINT `attachment-suggestion_attachment-id` FOREIGN KEY (`attachmentId`) REFERENCES `attachment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `suggestion-suggestion_attachment-id` FOREIGN KEY (`suggestionId`) REFERENCES `suggestion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `suggestion_tag`
 --
 
@@ -188,7 +253,7 @@ CREATE TABLE `user_decoration_override` (
   `isDeleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_decoration-user_decoration_override-user_idx` (`decorationName`,`decorationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -200,4 +265,4 @@ CREATE TABLE `user_decoration_override` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-03 23:44:16
+-- Dump completed on 2017-05-06  0:43:07

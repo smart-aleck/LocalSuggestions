@@ -1,9 +1,12 @@
 package com.fabs;
 
+import com.fabs.model.core.Audit;
 import com.fabs.model.users.Access;
 import com.fabs.model.users.Decoration;
 import com.fabs.model.users.User;
 import com.fabs.service.TestService;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -19,21 +22,21 @@ public class Main {
         logger.info("Loading Spring applicationContext");
         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-//        Audit audit = new Audit();
-//        audit.setUserId(12);
-//        audit.setIp("127.0.0.1");
-//        audit.setActivity("Testing");
-//        audit.setDevice("MAC");
-//        audit.setDescription("TestDescription");
-//        audit.setLocation(new GeometryFactory().createPoint(new Coordinate(5,2.5)));
+        Audit audit = new Audit();
+        audit.setUserId(12);
+        audit.setIp("127.0.0.1");
+        audit.setActivity("Testing");
+        audit.setDevice("MAC");
+        audit.setDescription("TestDescription");
+        audit.setLocation(new GeometryFactory().createPoint(new Coordinate(5,2.5)));
 
-        Access access = new Access();
-        access.setId(1);
+//        Access access = new Access();
+//        access.setId(1);
 //        access.setAccessText("BASIC");
 
         TestService testService = (TestService) context.getBean("testService");
-//        testService.runAuditTest(audit);
-        access = testService.runAccessTest(access);
+        testService.runAuditTest(audit);
+//        access = testService.runAccessTest(access);
 
 //        Decoration decoration = new Decoration();
 //        decoration.setId(1);
@@ -43,7 +46,7 @@ public class Main {
 
 //        decoration = testService.runDecorationTest(decoration);
 
-        User user = new User();
+//        User user = new User();
 //        user.setId(1);
 //        user.setEmail("ali.asghar@localsuggestions.com");
 //        user.setPasswordHash("passwordHash");

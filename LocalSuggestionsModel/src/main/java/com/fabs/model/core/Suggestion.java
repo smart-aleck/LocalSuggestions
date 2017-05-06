@@ -26,7 +26,7 @@ public class Suggestion {
     private Set<SuggestionTag> suggestionTags;
     private Set<SuggestionAction> suggestionActions;
     private Set<Comment> comments;
-    private Set<Attachment> attachments;
+    private Set<SuggestionAttachment> suggestionAttachments;
 
     @Basic
     @Column(name = "userId")
@@ -189,12 +189,12 @@ public class Suggestion {
     }
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "suggestion")
-    public Set<Attachment> getAttachments() {
-        return this.attachments;
+    public Set<SuggestionAttachment> getSuggestionAttachments() {
+        return this.suggestionAttachments;
     }
 
-    public void setAttachments(Set<Attachment> attachments) {
-        this.attachments = attachments;
+    public void setSuggestionAttachments(Set<SuggestionAttachment> suggestionAttachments) {
+        this.suggestionAttachments = suggestionAttachments;
     }
 
     @Override
