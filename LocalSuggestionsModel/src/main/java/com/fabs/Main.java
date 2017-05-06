@@ -1,6 +1,7 @@
 package com.fabs;
 
 import com.fabs.model.core.Audit;
+import com.fabs.model.core.Suggestion;
 import com.fabs.model.core.SuggestionTag;
 import com.fabs.model.users.Access;
 import com.fabs.model.users.Decoration;
@@ -31,11 +32,11 @@ public class Main {
             DAOService daoService = (DAOService)context.getBean("daoService");
             TestService testService = (TestService) context.getBean("testService");
 
-            SuggestionTag suggestionTag;
-            suggestionTag = daoService.find(1);
+            Suggestion suggestion;
+            suggestion = daoService.find(1);
 
 //            daoService.update(suggestionTag);
-            daoService.delete(suggestionTag);
+//            daoService.delete(suggestionTag);
 
             //access = new Access();
             //access.setDeleted(null);

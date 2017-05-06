@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -65,6 +66,22 @@ public class SuggestionDAOImpl implements SuggestionDAO {
     }
 
     public Set<Suggestion> find(Point location, Double radius) {
-        return null;
+
+        // http://stackoverflow.com/questions/1006654/fastest-way-to-find-distance-between-two-lat-long-points
+        String queryStr =
+            "   SELECT * FROM local_suggestions.suggestion " +
+            "   WHERE MBRContains (" +
+            "       LineString (" +
+            "           Point (:lon + :radius / ( :units / COS(RADIANS(:lat))), :lat + :radius / :units )," +
+            "           Point (:lon - :radius / ( :units / COS(RADIANS(:lat))), :lat - :radius / :units ) ), " +
+            "       location )";
+
+        Query query = sessionFactory.getCurrentSession().createNativeQuery(queryStr, Suggestion.class);
+        query.setParameter("lon", location.getX());
+        query.setParameter("lat", location.getY());
+        query.setParameter("radius", radius);
+        query.setParameter("units", "111.1");   // KM
+
+        return new HashSet<>(query.getResultList());
     }
 }
