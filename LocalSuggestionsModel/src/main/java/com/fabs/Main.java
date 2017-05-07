@@ -1,5 +1,6 @@
 package com.fabs;
 
+import com.fabs.model.core.Action;
 import com.fabs.model.core.Audit;
 import com.fabs.model.core.Suggestion;
 import com.fabs.model.core.SuggestionTag;
@@ -32,8 +33,8 @@ public class Main {
             DAOService daoService = (DAOService)context.getBean("daoService");
             TestService testService = (TestService) context.getBean("testService");
 
-            Suggestion suggestion;
-            suggestion = daoService.find(1);
+            Action action;
+            action = daoService.find(1);
 
 //            daoService.update(suggestionTag);
 //            daoService.delete(suggestionTag);

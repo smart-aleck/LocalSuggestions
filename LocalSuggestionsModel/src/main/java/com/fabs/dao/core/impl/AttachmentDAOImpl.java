@@ -36,6 +36,7 @@ public class AttachmentDAOImpl implements AttachmentDAO {
         }
     }
 
+    //http://websystique.com/springmvc/spring-mvc-4-fileupload-download-hibernate-example/
     public void saveOrUpdate(Set<Attachment> attachments) throws MissingDataException {
         try {
             for (Attachment attachment : attachments) {

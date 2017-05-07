@@ -1,6 +1,8 @@
 package com.fabs.service;
 
+import com.fabs.dao.core.ActionDAO;
 import com.fabs.dao.core.SuggestionDAO;
+import com.fabs.model.core.Action;
 import com.fabs.model.core.Suggestion;
 import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;
@@ -18,22 +20,30 @@ import java.util.Set;
 public class DAOService {
 
     @Autowired
-    SuggestionDAO SuggestionDAO;
+    ActionDAO actionDAO;
 
-    public Suggestion find(Integer id){
+    public Action find(Integer id){
         try {
-            GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 26910);
-            Point p = geometryFactory.createPoint(new Coordinate(-0.1620211, 51.4346670));
+//            GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 26910);
+//            Point p = geometryFactory.createPoint(new Coordinate(-0.1620211, 51.4346670));
 
-            Set<Suggestion> suggestions = SuggestionDAO.find(p,10.0);
+//            Set<Suggestion> suggestions = SuggestionDAO.find(p,10.0);
 
-            Suggestion Suggestion = SuggestionDAO.find(Integer.toUnsignedLong(id));
-            return Suggestion;
+            //Action action = actionDAO.find(id);
+            //actionDAO.delete(action);
+            Action action = new Action();
+            action.setActionText("OLA");
+            actionDAO.saveOrUpdate(action);
+            return action;
         }
-        catch (NotFoundException e){
+        catch (MissingDataException e){
             e.printStackTrace();
             return null;
         }
+//        catch (NotFoundException e){
+//            e.printStackTrace();
+//            return null;
+//        }
     }
 
 //    public void delete(Suggestion access){
