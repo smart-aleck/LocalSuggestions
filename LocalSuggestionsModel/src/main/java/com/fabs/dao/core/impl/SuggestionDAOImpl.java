@@ -2,30 +2,17 @@ package com.fabs.dao.core.impl;
 
 import com.fabs.dao.core.AbstractCoreDAO;
 import com.fabs.dao.core.SuggestionDAO;
-import com.fabs.model.core.Attachment;
 import com.fabs.model.core.Suggestion;
 import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;
 import com.vividsolutions.jts.geom.Point;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Parameter;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 @Repository
-@Transactional(value = "transactionManager", rollbackFor = Exception.class)
 public class SuggestionDAOImpl extends AbstractCoreDAO<Long, Suggestion> implements SuggestionDAO {
 
     public void saveOrUpdate(Suggestion suggestion) throws MissingDataException {
