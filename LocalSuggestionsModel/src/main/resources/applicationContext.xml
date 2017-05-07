@@ -38,7 +38,7 @@
     <!--====================================================-->
 
     <!--SESSION FACTORY - local_suggestions-->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <bean id="sessionFactoryCore" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="annotatedClasses">
             <list>
@@ -89,9 +89,9 @@
     </bean>
 
     <!--TRANSACTION MANAGERS-->
-    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
-          p:sessionFactory-ref="sessionFactory">
-        <qualifier value="transactionManager"/>
+    <bean id="transactionManagerCore" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactoryCore">
+        <qualifier value="transactionManagerCore"/>
     </bean>
     <bean id="transactionManagerUsers" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
           p:sessionFactory-ref="sessionFactoryUsers">

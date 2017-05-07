@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 //http://websystique.com/springmvc/spring-mvc-4-fileupload-download-hibernate-example/
-@Transactional(value = "transactionManager", rollbackFor = Exception.class)
+@Transactional(value = "transactionManagerCore", rollbackFor = Exception.class)
 public abstract class AbstractCoreDAO<PK extends Serializable, T> {
 
     private final Class<T> persistentClass;
@@ -28,7 +28,7 @@ public abstract class AbstractCoreDAO<PK extends Serializable, T> {
     private SessionFactory sessionFactory;
 
     @Autowired
-    @Qualifier("sessionFactory")
+    @Qualifier("sessionFactoryCore")
     public void setSessionFactory(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }

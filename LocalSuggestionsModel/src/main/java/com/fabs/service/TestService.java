@@ -33,7 +33,7 @@ public class TestService {
     @Autowired
     UserDecorationOverrideDAO userDecorationOverrideDAO;
 
-    //@Transactional("transactionManager")
+    //@Transactional("transactionManagerCore")
     public void runAuditTest(Audit audit) throws MissingDataException {
         auditDAO.log(audit);
     }

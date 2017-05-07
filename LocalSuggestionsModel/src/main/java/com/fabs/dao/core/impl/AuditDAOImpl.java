@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional(value = "transactionManager", rollbackFor = Exception.class)
 public class AuditDAOImpl extends AbstractCoreDAO<Long, Audit> implements AuditDAO {
 
     public void log(Audit audit) throws MissingDataException {
