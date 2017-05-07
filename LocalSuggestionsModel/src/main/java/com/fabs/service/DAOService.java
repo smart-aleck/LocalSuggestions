@@ -29,21 +29,21 @@ public class DAOService {
 
 //            Set<Suggestion> suggestions = SuggestionDAO.find(p,10.0);
 
-            //Action action = actionDAO.find(id);
+            Action action = actionDAO.find(id);
             //actionDAO.delete(action);
-            Action action = new Action();
-            action.setActionText("OLA");
-            actionDAO.saveOrUpdate(action);
+//            Action action = new Action();
+//            action.setActionText("OLA");
+//            actionDAO.saveOrUpdate(action);
             return action;
         }
-        catch (MissingDataException e){
-            e.printStackTrace();
-            return null;
-        }
-//        catch (NotFoundException e){
+//        catch (MissingDataException e){
 //            e.printStackTrace();
 //            return null;
 //        }
+        catch (NotFoundException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 //    public void delete(Suggestion access){

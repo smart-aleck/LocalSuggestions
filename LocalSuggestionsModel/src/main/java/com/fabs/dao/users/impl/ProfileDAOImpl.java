@@ -1,50 +1,22 @@
 package com.fabs.dao.users.impl;
 
+import com.fabs.dao.users.AbstractUsersDAO;
 import com.fabs.dao.users.ProfileDAO;
 import com.fabs.model.exceptions.MissingDataException;
-import com.fabs.model.exceptions.NotFoundException;
 import com.fabs.model.users.Profile;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.PersistenceException;
 
 @Repository
-@Transactional(value = "transactionManagerUsers", rollbackFor = Exception.class)
-public class ProfileDAOImpl implements ProfileDAO {
-
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public ProfileDAOImpl(@Qualifier("sessionFactoryUsers") SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+public class ProfileDAOImpl extends AbstractUsersDAO<Integer, Profile> implements ProfileDAO {
 
     public void saveOrUpdate(Profile profile) throws MissingDataException {
-        try {
-            profile.setVersion(profile.getVersion() + 1);
-            profile.setUpdateTimestamp(null);
-            sessionFactory.getCurrentSession().saveOrUpdate(profile);
-            sessionFactory.getCurrentSession().flush();
-        }
-        catch(PersistenceException exception){
-            throw new MissingDataException(profile, exception);
-        }
+        profile.setVersion(profile.getVersion() + 1);
+        profile.setUpdateTimestamp(null);
+        saveOrUpdateEntity(profile);
     }
 
     public void delete(Profile profile) throws MissingDataException {
         profile.setDeleted(true);
         saveOrUpdate(profile);
-    }
-
-    public Profile find(Integer id) throws NotFoundException {
-        Profile profile = sessionFactory.getCurrentSession().find(Profile.class, id);
-        if(profile == null)
-            throw new NotFoundException(String.format("[Profile] object with id {0} not found", id));
-
-        return profile;
     }
 }
