@@ -34,7 +34,7 @@ public class TestService {
     UserDecorationOverrideDAO userDecorationOverrideDAO;
 
     //@Transactional("transactionManager")
-    public void runAuditTest(Audit audit){
+    public void runAuditTest(Audit audit) throws MissingDataException {
         auditDAO.log(audit);
     }
 

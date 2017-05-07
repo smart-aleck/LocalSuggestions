@@ -2,8 +2,10 @@ package com.fabs.service;
 
 import com.fabs.dao.core.ActionDAO;
 import com.fabs.dao.core.SuggestionDAO;
+import com.fabs.dao.core.UserDecorationOverrideDAO;
 import com.fabs.model.core.Action;
 import com.fabs.model.core.Suggestion;
+import com.fabs.model.core.UserDecorationOverride;
 import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;
 import com.vividsolutions.jts.geom.Coordinate;
@@ -20,27 +22,28 @@ import java.util.Set;
 public class DAOService {
 
     @Autowired
-    ActionDAO actionDAO;
+    SuggestionDAO dao;
 
-    public Action find(Integer id){
+    public Suggestion find(Integer id){
         try {
-//            GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 26910);
-//            Point p = geometryFactory.createPoint(new Coordinate(-0.1620211, 51.4346670));
+            GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 26910);
+            Point p = geometryFactory.createPoint(new Coordinate(-0.1620211, 51.4346670));
 
-//            Set<Suggestion> suggestions = SuggestionDAO.find(p,10.0);
+            Set<Suggestion> suggestions = dao.find(p,10.0);
 
-            Action action = actionDAO.find(id);
-            //actionDAO.delete(action);
+//            UserDecorationOverride action = dao.find(id);
+//            Set<UserDecorationOverride> actionSet = dao.findByUser(id);
+            //dao.delete(action);
 //            Action action = new Action();
 //            action.setActionText("OLA");
-//            actionDAO.saveOrUpdate(action);
-            return action;
+//            dao.saveOrUpdate(action);
+            return null;
         }
 //        catch (MissingDataException e){
 //            e.printStackTrace();
 //            return null;
 //        }
-        catch (NotFoundException e){
+        catch (Exception e){
             e.printStackTrace();
             return null;
         }

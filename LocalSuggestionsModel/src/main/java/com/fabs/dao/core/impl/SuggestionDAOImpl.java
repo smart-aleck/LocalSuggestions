@@ -1,6 +1,8 @@
 package com.fabs.dao.core.impl;
 
+import com.fabs.dao.core.AbstractCoreDAO;
 import com.fabs.dao.core.SuggestionDAO;
+import com.fabs.model.core.Attachment;
 import com.fabs.model.core.Suggestion;
 import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;
@@ -11,35 +13,25 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Parameter;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Repository
 @Transactional(value = "transactionManager", rollbackFor = Exception.class)
-public class SuggestionDAOImpl implements SuggestionDAO {
-
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public SuggestionDAOImpl(@Qualifier("sessionFactory") SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+public class SuggestionDAOImpl extends AbstractCoreDAO<Long, Suggestion> implements SuggestionDAO {
 
     public void saveOrUpdate(Suggestion suggestion) throws MissingDataException {
-        try {
-            suggestion.setVersion(suggestion.getVersion() + 1);
-            suggestion.setUpdateTimestamp(null);
-            sessionFactory.getCurrentSession().saveOrUpdate(suggestion);
-            sessionFactory.getCurrentSession().flush();
-        }
-        catch(PersistenceException exception){
-            throw new MissingDataException(suggestion, exception);
-        }
+        suggestion.setVersion(suggestion.getVersion() + 1);
+        suggestion.setUpdateTimestamp(null);
+        saveOrUpdateEntity(suggestion);
     }
 
     public void delete(Suggestion suggestion) throws MissingDataException {
@@ -47,27 +39,12 @@ public class SuggestionDAOImpl implements SuggestionDAO {
         suggestion.setDeleted(true);
     }
 
-    public Suggestion find(Long id) throws NotFoundException {
-        Suggestion suggestion = sessionFactory.getCurrentSession().find(Suggestion.class, id);
-        if(suggestion == null)
-            throw new NotFoundException(String.format("[Suggestion] object with id {0} not found", id));
-
-        return suggestion;
-    }
-
     public Set<Suggestion> findByUser(Integer userId) throws NotFoundException {
-        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
-        CriteriaQuery<Suggestion> criteria = builder.createQuery(Suggestion.class);
-        Root<Suggestion> root = criteria.from(Suggestion.class);
-        criteria.select(root);
-        criteria.where(builder.equal(root.get("userId"), userId));
-        return new HashSet<>(
-                sessionFactory.getCurrentSession().createQuery(criteria).getResultList());
+        return findByFieldEquals("userId", userId);
     }
 
+    // http://stackoverflow.com/questions/1006654/fastest-way-to-find-distance-between-two-lat-long-points
     public Set<Suggestion> find(Point location, Double radius) {
-
-        // http://stackoverflow.com/questions/1006654/fastest-way-to-find-distance-between-two-lat-long-points
         String queryStr =
             "   SELECT * FROM local_suggestions.suggestion " +
             "   WHERE MBRContains (" +
@@ -76,12 +53,12 @@ public class SuggestionDAOImpl implements SuggestionDAO {
             "           Point (:lon - :radius / ( :units / COS(RADIANS(:lat))), :lat - :radius / :units ) ), " +
             "       location )";
 
-        Query query = sessionFactory.getCurrentSession().createNativeQuery(queryStr, Suggestion.class);
-        query.setParameter("lon", location.getX());
-        query.setParameter("lat", location.getY());
-        query.setParameter("radius", radius);
-        query.setParameter("units", "111.1");   // KM
+        Map<String, Object> namedParameters = new HashMap<>();
+        namedParameters.put("lon", location.getX());
+        namedParameters.put("lat", location.getY());
+        namedParameters.put("radius", radius);
+        namedParameters.put("units", 111.1); // KM
 
-        return new HashSet<>(query.getResultList());
+        return findByQuery(queryStr, namedParameters);
     }
 }

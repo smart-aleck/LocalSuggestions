@@ -17,6 +17,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.Set;
 
+//http://websystique.com/springmvc/spring-mvc-4-fileupload-download-hibernate-example/
 @Transactional(value = "transactionManagerUsers", rollbackFor = Exception.class)
 public abstract class AbstractUsersDAO<PK extends Serializable, T> {
 

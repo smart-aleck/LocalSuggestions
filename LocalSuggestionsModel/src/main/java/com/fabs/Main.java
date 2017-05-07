@@ -1,9 +1,7 @@
 package com.fabs;
 
-import com.fabs.model.core.Action;
-import com.fabs.model.core.Audit;
-import com.fabs.model.core.Suggestion;
-import com.fabs.model.core.SuggestionTag;
+import com.fabs.model.core.*;
+import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.users.Access;
 import com.fabs.model.users.Decoration;
 import com.fabs.model.users.User;
@@ -25,7 +23,7 @@ public class Main {
 
     private final static Logger logger = LogManager.getLogger();
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws MissingDataException {
         logger.info("Loading Spring applicationContext");
         try(ConfigurableApplicationContext
                 context = new ClassPathXmlApplicationContext("applicationContext.xml")){
@@ -33,8 +31,8 @@ public class Main {
             DAOService daoService = (DAOService)context.getBean("daoService");
             TestService testService = (TestService) context.getBean("testService");
 
-            Action action;
-            action = daoService.find(17);
+            Suggestion action;
+            action = daoService.find(2);
 
 //            daoService.update(suggestionTag);
 //            daoService.delete(suggestionTag);
