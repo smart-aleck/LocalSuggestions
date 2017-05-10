@@ -31,8 +31,8 @@ public class Main {
             DAOService daoService = (DAOService)context.getBean("daoService");
             TestService testService = (TestService) context.getBean("testService");
 
-            Suggestion action;
-            action = daoService.find(2);
+            User user;
+            user = daoService.find(1);
 
 //            daoService.update(suggestionTag);
 //            daoService.delete(suggestionTag);
