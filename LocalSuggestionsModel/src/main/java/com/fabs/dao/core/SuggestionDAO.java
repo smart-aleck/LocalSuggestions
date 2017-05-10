@@ -1,7 +1,6 @@
 package com.fabs.dao.core;
 
 import com.fabs.model.core.Suggestion;
-import com.fabs.model.users.User;
 import com.vividsolutions.jts.geom.Point;
 import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;

@@ -47,7 +47,7 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
         }
     }
 
-    public T find(PK key) throws NotFoundException {
+    protected T findEntity(PK key) throws NotFoundException {
         T entity = sessionFactory.getCurrentSession().find(persistentClass, key);
         if(entity == null)
             throw new NotFoundException(String.format("[%s] object with id %d not found", persistentClass.toString(), key));
@@ -55,7 +55,7 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
         return entity;
     }
 
-    public Set<T> find(Set<PK> ids) {
+    protected Set<T> findEntity(Set<PK> ids) {
         CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
         CriteriaQuery<T> criteria = builder.createQuery(persistentClass);
         Root<T> root = criteria.from(persistentClass);
@@ -79,6 +79,6 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
     protected Set<T> findByQuery(String queryStr, Map<String, Object> namedParameters) {
         Query query = sessionFactory.getCurrentSession().createNativeQuery(queryStr, persistentClass);
         namedParameters.entrySet().forEach(entry -> query.setParameter(entry.getKey(), entry.getValue()));
-        return new HashSet<>(query.getResultList());
+        return new HashSet<T>(query.getResultList());
     }
 }

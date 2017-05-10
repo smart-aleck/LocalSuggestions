@@ -31,18 +31,15 @@ public class DAOService {
     @Autowired
     UserDAO userDAO;
 
-    private final static Logger logger = LogManager.getLogger();
-
     public User find(Integer id){
         try {
             GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 26910);
             Point p = geometryFactory.createPoint(new Coordinate(-0.1620211, 51.4346670));
 
             Set<Suggestion> suggestions = suggestionDAO.find(p,10.0);
-            logger.debug(suggestions);
-
+            suggestions = suggestionDAO.findByUser(1);
+            Suggestion suggestion = suggestionDAO.find(1L);
             User user = userDAO.find(1);
-            logger.debug(user);
 
 //            UserDecorationOverride action = dao.find(id);
 //            Set<UserDecorationOverride> actionSet = dao.findByUser(id);
