@@ -16,13 +16,13 @@ public class EncryptionLogging {
 
     private final static Logger logger = LogManager.getLogger();
 
-    @Before("execution(* com.fabs.dao..*(..))")
+    @Before("execution(* com.fabs.encryption..*(..))")
     public void before(JoinPoint joinPoint){
         logger.debug(String.format("[%s] called",
                 joinPoint.getSignature().toShortString()));
     }
 
-    @AfterReturning(pointcut="execution(* com.fabs.dao..*(..))", returning="result")
+    @AfterReturning(pointcut="execution(* com.fabs.encryption..*(..))", returning="result")
     public void after(JoinPoint joinPoint, Object result){
         logger.debug(String.format("[%s] returns %s",
                 joinPoint.getSignature().toShortString(),result));
