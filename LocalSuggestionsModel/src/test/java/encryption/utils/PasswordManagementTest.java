@@ -3,10 +3,9 @@ package encryption.utils;
 import com.fabs.encryption.utils.PasswordManagement;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class PasswordManagementTest {
 
@@ -36,7 +35,7 @@ public class PasswordManagementTest {
         assertEquals(PasswordManagement.HASH_SECTIONS, passwordHashParts(PASSWORD1).length);
     }
 
-    @Test
+    @Test(expected=PasswordManagement.CannotPerformOperationException.class)
     public void PasswordHashDifferentAlgorithmName()
             throws PasswordManagement.CannotPerformOperationException, PasswordManagement.InvalidHashException
     {
@@ -44,8 +43,7 @@ public class PasswordManagementTest {
         hashParts[PasswordManagement.HASH_ALGORITHM_INDEX] = "sha2";
 
         String modifiedHash = String.join(PasswordManagement.PARTS_JOIN_KEY, hashParts);
-        assertThrows(PasswordManagement.CannotPerformOperationException.class,
-                () -> { PasswordManagement.verifyPassword(PASSWORD1, modifiedHash); });
+        PasswordManagement.verifyPassword(PASSWORD1, modifiedHash);
     }
 
     private String[] passwordHashParts(String password)
