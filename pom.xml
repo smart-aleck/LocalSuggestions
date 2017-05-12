@@ -13,6 +13,7 @@
         <apache.commons.dbcp.version>1.4</apache.commons.dbcp.version>
         <aspectj.version>1.8.10</aspectj.version>
         <hibernate.version>5.2.10.Final</hibernate.version>
+        <hsqldb.version>2.2.8</hsqldb.version>
         <javax.persistence.version>1.0.2</javax.persistence.version>
         <junit.version>4.12</junit.version>
         <log4j.version>2.8.2</log4j.version>
