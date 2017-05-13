@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "suggestion_action", schema = "local_suggestions")
+@Table(name = "suggestion_action")
 public class SuggestionAction {
     private Long id;
     private Suggestion suggestion;

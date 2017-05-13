@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 
 @Entity
-@Table(name = "profile", schema = "local_suggestions_users")
+@Table(name = "profile")
 public class Profile {
     private Integer id;
     private User user;

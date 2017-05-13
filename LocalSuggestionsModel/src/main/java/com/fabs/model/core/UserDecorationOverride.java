@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user_decoration_override", schema = "local_suggestions")
+@Table(name = "user_decoration_override")
 public class UserDecorationOverride {
     private Integer id;
     private Integer userId;

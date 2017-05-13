@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "comment", schema = "local_suggestions")
+@Table(name = "comment")
 public class Comment {
     private Integer userId;
     private Suggestion suggestion;

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "comment_attachment", schema = "local_suggestions")
+@Table(name = "comment_attachment")
 public class CommentAttachment {
     private Long id;
     private Comment comment;

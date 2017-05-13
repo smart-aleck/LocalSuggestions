@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
-@Table(name = "action", schema = "local_suggestions")
+@Table(name = "action")
 public class Action {
     private Integer id;
     private String actionText;

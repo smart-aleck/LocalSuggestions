@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 @Entity
-@Table(name = "attachment", schema = "local_suggestions")
+@Table(name = "attachment")
 public class Attachment {
     private String attachmentType;
     private String attachmentName;

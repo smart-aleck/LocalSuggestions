@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "suggestion_tag", schema = "local_suggestions")
+@Table(name = "suggestion_tag")
 public class SuggestionTag {
     private Suggestion suggestion;
     private String tag;

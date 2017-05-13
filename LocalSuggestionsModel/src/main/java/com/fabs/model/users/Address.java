@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "address", schema = "local_suggestions_users")
+@Table(name = "address")
 public class Address {
     private Integer id;
     private User user;

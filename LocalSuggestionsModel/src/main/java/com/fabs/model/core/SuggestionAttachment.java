@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "suggestion_attachment", schema = "local_suggestions")
+@Table(name = "suggestion_attachment")
 public class SuggestionAttachment {
     private Long id;
     private Suggestion suggestion;

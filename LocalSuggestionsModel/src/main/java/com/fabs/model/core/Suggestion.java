@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
-@Table(name = "suggestion", schema = "local_suggestions")
+@Table(name = "suggestion")
 public class Suggestion {
     private Long id;
     private Integer userId;

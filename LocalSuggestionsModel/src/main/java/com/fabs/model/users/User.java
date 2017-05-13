@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
-@Table(name = "user", schema = "local_suggestions_users")
+@Table(name = "user")
 public class User {
     private Integer id;
     private Access access;
