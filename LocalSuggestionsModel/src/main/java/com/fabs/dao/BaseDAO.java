@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 public interface BaseDAO<PK extends Serializable, T> {
 
+    T refresh(T entity);
+
     void saveOrUpdate(T entity) throws MissingDataException;
 
     void delete(T entity) throws MissingDataException;

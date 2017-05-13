@@ -28,7 +28,9 @@ public abstract class AbstractUsersDAO<PK extends Serializable, T> extends Abstr
     public Long count(){
         return rowCount();
     }
-
+    public T refresh(T entity){
+        return refreshEntity(entity);
+    }
     public Set<T> find(Set<PK> keys) {
         return findEntity(keys);
     }

@@ -24,6 +24,9 @@ public abstract class AbstractCoreDAO<PK extends Serializable, T> extends Abstra
     public T find(PK key) throws NotFoundException {
         return findEntity(key);
     }
+    public T refresh(T entity){
+        return refreshEntity(entity);
+    }
     public Long count(){
         return rowCount();
     }

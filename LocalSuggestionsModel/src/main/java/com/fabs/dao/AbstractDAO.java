@@ -27,6 +27,11 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
         this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
+    protected T refreshEntity(T entity){
+        sessionFactory.getCurrentSession().refresh(entity);
+        return entity;
+    }
+
     protected void saveOrUpdateEntity(T entity) throws MissingDataException {
         try {
             sessionFactory.getCurrentSession().saveOrUpdate(entity);
@@ -48,14 +53,24 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
     }
 
     protected T findEntity(PK key) throws NotFoundException {
-        T entity = sessionFactory.getCurrentSession().find(persistentClass, key);
+        T entity = null;
+        try {
+            entity = sessionFactory.getCurrentSession().find(persistentClass, key);
+        }
+        catch (IllegalArgumentException exception){
+            throw new NotFoundException(String.format("[%s] object with id %s is invalid",
+                    persistentClass.toString(), key), exception);
+        }
         if(entity == null)
-            throw new NotFoundException(String.format("[%s] object with id %d not found", persistentClass.toString(), key));
+            throw new NotFoundException(String.format("[%s] object with id %s not found", persistentClass.toString(), key));
 
         return entity;
     }
 
     protected Set<T> findEntity(Set<PK> ids) {
+        if(ids.size() == 0)
+            return new HashSet<T>();
+
         CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = builder.createQuery(persistentClass);
         Root<T> root = criteriaQuery.from(persistentClass);
@@ -82,6 +97,7 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
         return new HashSet<T>(query.getResultList());
     }
 
+    //http://stackoverflow.com/questions/2883887/in-jpa-2-using-a-criteriaquery-how-to-count-results
     protected Long rowCount(){
         CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
