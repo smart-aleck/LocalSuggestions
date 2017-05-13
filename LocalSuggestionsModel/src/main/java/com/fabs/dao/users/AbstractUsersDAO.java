@@ -28,15 +28,18 @@ public abstract class AbstractUsersDAO<PK extends Serializable, T> extends Abstr
     public T refresh(T entity){
         return refreshEntity(entity);
     }
+
+    // Only show the active rows
     public Long count(){
         return count(false);
     }
+
+    // withDeleted(True) - Total Count
     public Long count(Boolean withDeleted){
-        return rowCount();
-//        if(withDeleted)
-//            return rowCount();
-//        else
-//            return rowCount("com.fabs.model.users.Access.isDeleted", withDeleted);
+        if(withDeleted)
+            return rowCount();
+        else
+            return rowCount("isDeleted", withDeleted);
     }
 
     public Set<T> find(Set<PK> keys) {
