@@ -11,9 +11,9 @@
     <tx:annotation-driven/>
     <aop:aspectj-autoproxy />
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="dataSourceCore" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/local_suggestions" />
+        <property name="url" value="jdbc:mysql://localhost:3306/local_suggestions_core" />
         <property name="username" value="root" />
         <property name="password" value="root" />
     </bean>
@@ -32,15 +32,15 @@
         <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions_users.sql"/>
     </jdbc:initialize-database>
 
-    <jdbc:initialize-database data-source="dataSource" enabled="false">
-        <jdbc:script location="classpath:mysql/baseline/schema/create_local_suggestions.sql"/>
-        <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions.sql"/>
+    <jdbc:initialize-database data-source="dataSourceCore" enabled="false">
+        <jdbc:script location="classpath:mysql/baseline/schema/create_local_suggestions_core.sql"/>
+        <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions_core.sql"/>
     </jdbc:initialize-database>
     <!--====================================================-->
 
-    <!--SESSION FACTORY - local_suggestions-->
+    <!--SESSION FACTORY - local_suggestions_core-->
     <bean id="sessionFactoryCore" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSourceCore"></property>
         <property name="annotatedClasses">
             <list>
                 <value>com.fabs.model.core.Action</value>
@@ -60,7 +60,7 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/local_suggestions</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/local_suggestions_core</prop>
                 <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>

@@ -33,7 +33,7 @@ public class SuggestionDAOImpl extends AbstractCoreDAO<Long, Suggestion> impleme
     // http://stackoverflow.com/questions/1006654/fastest-way-to-find-distance-between-two-lat-long-points
     public Set<Suggestion> find(Point location, Double radius) {
         String queryStr =
-            "   SELECT * FROM local_suggestions.suggestion " +
+            "   SELECT * FROM suggestion " +
             "   WHERE MBRContains (" +
             "       LineString (" +
             "           Point (:lon + :radius / ( :units / COS(RADIANS(:lat))), :lat + :radius / :units )," +
