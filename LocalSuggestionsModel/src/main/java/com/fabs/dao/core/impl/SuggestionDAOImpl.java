@@ -23,7 +23,7 @@ public class SuggestionDAOImpl extends AbstractCoreDAO<Long, Suggestion> impleme
 
     public void delete(Suggestion suggestion) throws MissingDataException {
         saveOrUpdate(suggestion);
-        suggestion.setDeleted(true);
+        suggestion.setIsDeleted(true);
     }
 
     public Set<Suggestion> findByUser(Integer userId) throws NotFoundException {

@@ -16,7 +16,7 @@ public class PhoneDAOImpl extends AbstractUsersDAO<Integer, Phone> implements Ph
     }
 
     public void delete(Phone phone) throws MissingDataException {
-        phone.setDeleted(true);
+        phone.setIsDeleted(true);
         saveOrUpdate(phone);
     }
 }

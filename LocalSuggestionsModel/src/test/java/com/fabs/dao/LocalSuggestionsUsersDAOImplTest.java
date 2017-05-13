@@ -117,14 +117,14 @@ public class LocalSuggestionsUsersDAOImplTest {
     public void accessDelete() throws NotFoundException, MissingDataException {
         Access access = accessDAO.find(1);
         Assert.assertEquals("Checking Counts before delete", (Long)3L, accessDAO.count());
-        Assert.assertEquals("Check deleted before", false, access.getDeleted());
+        Assert.assertEquals("Check deleted before", false, access.getIsDeleted());
 
         Integer version = access.getVersion();
         accessDAO.delete(access);
 
         access = accessDAO.find(1);
 
-        Assert.assertEquals("Check deleted after", true, access.getDeleted());
+        Assert.assertEquals("Check deleted after", true, access.getIsDeleted());
         Assert.assertEquals("Check version after delete", (Integer)(version+1), access.getVersion());
 
         Assert.assertEquals("Checking Counts after delete", (Long)2L, accessDAO.count());
@@ -146,7 +146,7 @@ public class LocalSuggestionsUsersDAOImplTest {
     @Test(expected = MissingDataException.class)
     public void accessUpdateException() throws NotFoundException, MissingDataException {
         Access access = accessDAO.find(3);
-        access.setDeleted(null);
+        access.setIsDeleted(null);
         accessDAO.saveOrUpdate(access);
     }
 }

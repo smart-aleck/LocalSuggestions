@@ -16,7 +16,7 @@ public class CommentLocationDAOImpl extends AbstractCoreDAO<Integer, CommentLoca
     }
 
     public void delete(CommentLocation commentLocation) throws MissingDataException {
-        commentLocation.setDeleted(true);
+        commentLocation.setIsDeleted(true);
         saveOrUpdate(commentLocation);
     }
 }

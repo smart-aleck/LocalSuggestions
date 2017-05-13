@@ -16,7 +16,7 @@ public class ProfileDAOImpl extends AbstractUsersDAO<Integer, Profile> implement
     }
 
     public void delete(Profile profile) throws MissingDataException {
-        profile.setDeleted(true);
+        profile.setIsDeleted(true);
         saveOrUpdate(profile);
     }
 }

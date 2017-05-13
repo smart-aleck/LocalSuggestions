@@ -18,7 +18,7 @@ public class UserDecorationOverrideDAOImpl extends AbstractCoreDAO<Integer, User
     }
 
     public void delete(UserDecorationOverride userDecorationOverride) throws MissingDataException {
-        userDecorationOverride.setDeleted(true);
+        userDecorationOverride.setIsDeleted(true);
         saveOrUpdate(userDecorationOverride);
     }
 

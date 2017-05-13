@@ -26,12 +26,12 @@ public class AttachmentDAOImpl extends AbstractCoreDAO<Long, Attachment> impleme
     }
 
     public void delete(Attachment attachment) throws MissingDataException {
-        attachment.setDeleted(true);
+        attachment.setIsDeleted(true);
         saveOrUpdate(attachment);
     }
 
     public void delete(Set<Attachment> attachments) throws MissingDataException {
-        attachments.forEach(attachment -> attachment.setDeleted(true));
+        attachments.forEach(attachment -> attachment.setIsDeleted(true));
         saveOrUpdate(attachments);
     }
 }

@@ -26,12 +26,12 @@ public class SuggestionTagDAOImpl extends AbstractCoreDAO<Long, SuggestionTag> i
     }
 
     public void delete(SuggestionTag suggestionTag) throws MissingDataException {
-        suggestionTag.setDeleted(true);
+        suggestionTag.setIsDeleted(true);
         saveOrUpdate(suggestionTag);
     }
 
     public void delete(Set<SuggestionTag> suggestionTags) throws MissingDataException {
-        suggestionTags.forEach(suggestionTag -> suggestionTag.setDeleted(true));
+        suggestionTags.forEach(suggestionTag -> suggestionTag.setIsDeleted(true));
         saveOrUpdate(suggestionTags);
     }
 }

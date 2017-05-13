@@ -16,7 +16,7 @@ public class ActionDAOImpl extends AbstractCoreDAO<Integer, Action> implements A
     }
 
     public void delete(Action action) throws MissingDataException {
-        action.setDeleted(true);
+        action.setIsDeleted(true);
         saveOrUpdate(action);
     }
 }

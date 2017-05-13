@@ -17,6 +17,6 @@ public class CommentDAOImpl extends AbstractCoreDAO<Long, Comment> implements Co
 
     public void delete(Comment comment) throws MissingDataException {
         saveOrUpdate(comment);
-        comment.setDeleted(true);
+        comment.setIsDeleted(true);
     }
 }

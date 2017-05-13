@@ -16,7 +16,7 @@ public class DecorationDAOImpl extends AbstractUsersDAO<Integer, Decoration> imp
     }
 
     public void delete(Decoration decoration) throws MissingDataException {
-        decoration.setDeleted(true);
+        decoration.setIsDeleted(true);
         saveOrUpdate(decoration);
     }
 }

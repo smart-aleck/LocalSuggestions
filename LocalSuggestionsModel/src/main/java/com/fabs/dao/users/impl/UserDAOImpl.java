@@ -16,7 +16,7 @@ public class UserDAOImpl extends AbstractUsersDAO<Integer, User> implements User
     }
 
     public void delete(User user) throws MissingDataException {
-        user.setDeleted(true);
+        user.setIsDeleted(true);
         saveOrUpdate(user);
     }
 }

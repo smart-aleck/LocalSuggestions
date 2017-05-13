@@ -38,7 +38,7 @@ public class Main {
 //            daoService.delete(suggestionTag);
 
             //access = new Access();
-            //access.setDeleted(null);
+            //access.setIsDeleted(null);
             //access.setAccessText("TEST-ACCESS");
             //daoService.update(access);
 

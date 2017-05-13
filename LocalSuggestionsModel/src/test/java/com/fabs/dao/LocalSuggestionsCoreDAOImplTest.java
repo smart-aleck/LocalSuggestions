@@ -122,14 +122,14 @@ public class LocalSuggestionsCoreDAOImplTest {
     public void actionDelete() throws NotFoundException, MissingDataException {
         Action action = actionDAO.find(2);
         Assert.assertEquals("Checking Counts before delete", (Long)3L, actionDAO.count());
-        Assert.assertEquals("Check deleted before", false, action.getDeleted());
+        Assert.assertEquals("Check deleted before", false, action.getIsDeleted());
 
         Integer version = action.getVersion();
         actionDAO.delete(action);
 
         action = actionDAO.find(2);
 
-        Assert.assertEquals("Check deleted after", true, action.getDeleted());
+        Assert.assertEquals("Check deleted after", true, action.getIsDeleted());
         Assert.assertEquals("Check version after delete", (Integer)(version+1), action.getVersion());
 
         Assert.assertEquals("Checking Counts after delete", (Long)2L, actionDAO.count());
@@ -151,7 +151,7 @@ public class LocalSuggestionsCoreDAOImplTest {
     @Test(expected = MissingDataException.class)
     public void actionAddException() throws MissingDataException, NotFoundException {
         Action action = actionDAO.find(1);
-        action.setDeleted(null);
+        action.setIsDeleted(null);
         actionDAO.saveOrUpdate(action);
     }
 

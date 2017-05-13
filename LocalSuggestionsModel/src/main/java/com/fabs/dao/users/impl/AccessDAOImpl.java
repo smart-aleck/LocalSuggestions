@@ -16,7 +16,7 @@ public class AccessDAOImpl extends AbstractUsersDAO<Integer, Access> implements 
     }
 
     public void delete(Access access) throws MissingDataException {
-        access.setDeleted(true);
+        access.setIsDeleted(true);
         saveOrUpdate(access);
     }
 }

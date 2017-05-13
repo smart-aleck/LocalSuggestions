@@ -26,12 +26,12 @@ public class SuggestionAttachmentDAOImpl extends AbstractCoreDAO<Long, Suggestio
     }
 
     public void delete(SuggestionAttachment suggestionAttachment) throws MissingDataException {
-        suggestionAttachment.setDeleted(true);
+        suggestionAttachment.setIsDeleted(true);
         saveOrUpdate(suggestionAttachment);
     }
 
     public void delete(Set<SuggestionAttachment> suggestionAttachments) throws MissingDataException {
-        suggestionAttachments.forEach(suggestionAttachment -> suggestionAttachment.setDeleted(true));
+        suggestionAttachments.forEach(suggestionAttachment -> suggestionAttachment.setIsDeleted(true));
         saveOrUpdate(suggestionAttachments);
     }
 }

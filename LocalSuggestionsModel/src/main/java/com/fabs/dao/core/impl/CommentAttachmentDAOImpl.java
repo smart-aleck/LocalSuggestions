@@ -26,12 +26,12 @@ public class CommentAttachmentDAOImpl extends AbstractCoreDAO<Long, CommentAttac
     }
 
     public void delete(CommentAttachment commentAttachment) throws MissingDataException {
-        commentAttachment.setDeleted(true);
+        commentAttachment.setIsDeleted(true);
         saveOrUpdateEntity(commentAttachment);
     }
 
     public void delete(Set<CommentAttachment> commentAttachments) throws MissingDataException {
-        commentAttachments.forEach(commentAttachment -> commentAttachment.setDeleted(true));
+        commentAttachments.forEach(commentAttachment -> commentAttachment.setIsDeleted(true));
         saveOrUpdateEntity(commentAttachments);
     }
 }

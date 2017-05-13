@@ -16,7 +16,7 @@ public class SuggestionActionDAOImpl extends AbstractCoreDAO<Long, SuggestionAct
     }
 
     public void delete(SuggestionAction suggestionAction) throws MissingDataException {
-        suggestionAction.setDeleted(true);
+        suggestionAction.setIsDeleted(true);
         saveOrUpdate(suggestionAction);
     }
 }

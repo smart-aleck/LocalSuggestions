@@ -16,7 +16,7 @@ public class AddressDAOImpl extends AbstractUsersDAO<Integer, Address> implement
     }
 
     public void delete(Address address) throws MissingDataException {
-        address.setDeleted(true);
+        address.setIsDeleted(true);
         saveOrUpdate(address);
     }
 }
