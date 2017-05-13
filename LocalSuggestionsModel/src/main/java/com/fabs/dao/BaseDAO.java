@@ -16,4 +16,5 @@ public interface BaseDAO<PK extends Serializable, T> {
     T find(PK id) throws NotFoundException;
 
     Long count();
+    Long count(Boolean withDeleted);
 }

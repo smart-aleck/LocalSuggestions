@@ -63,7 +63,7 @@ public class LocalSuggestionsUsersDAOImplTest {
         Assert.assertEquals("Validate Find Id", (Integer) 1, userDAO.find(1).getId());
     }
 
-    // SET TESTS
+    // FIND SET TESTS
     @Test
     public void userDAOSelectSet() throws NotFoundException, MissingDataException {
         Set<Integer> usersToFind = new HashSet<>(Arrays.asList(1,2,3,4));
@@ -82,12 +82,12 @@ public class LocalSuggestionsUsersDAOImplTest {
         users = userDAO.find(usersToFind);
         Assert.assertEquals("Find Multiple Ids (Empty Set)", 0, users.size());
     }
+
+    // ID FIND EXCEPTION TESTS
     @Test(expected=NotFoundException.class)
     public void userNotFound() throws NotFoundException, MissingDataException {
         userDAO.find(999);
     }
-
-    // ID FIND TESTS
     @Test(expected=NotFoundException.class)
     public void checkNegativeId() throws NotFoundException, MissingDataException {
         userDAO.find(-1);
@@ -116,6 +116,7 @@ public class LocalSuggestionsUsersDAOImplTest {
     @Test
     public void accessDelete() throws NotFoundException, MissingDataException {
         Access access = accessDAO.find(1);
+        Assert.assertEquals("Checking Counts before delete", (Long)3L, accessDAO.count());
         Assert.assertEquals("Check deleted before", false, access.getDeleted());
 
         Integer version = access.getVersion();
@@ -125,6 +126,9 @@ public class LocalSuggestionsUsersDAOImplTest {
 
         Assert.assertEquals("Check deleted after", true, access.getDeleted());
         Assert.assertEquals("Check version after delete", (Integer)(version+1), access.getVersion());
+
+        Assert.assertEquals("Checking Counts after delete", (Long)2L, accessDAO.count());
+        Assert.assertEquals("Checking Total Count", (Long)3L, accessDAO.count(true));
     }
     @Test
     public void accessAdd() throws NotFoundException, MissingDataException {
@@ -134,10 +138,15 @@ public class LocalSuggestionsUsersDAOImplTest {
         access.setAccessText("NEWACCESS1");
         Assert.assertNull("Checking Id Null for new Entity (Before Add)", access.getId());
         accessDAO.saveOrUpdate(access);
-        Assert.assertNotEquals("Checking Id Not Null for Entity (After Add)", access.getId());
+        Assert.assertNotNull("Checking Id Not Null for Entity (After Add)", access.getId());
         Assert.assertEquals("Checking New Id version", (Integer) 1, access.getVersion());
-        Assert.assertEquals("Checking New Id is an increment", (Integer) 4, access.getId());
 
         Assert.assertEquals("Checking Counts", (Long)4L, accessDAO.count());
+    }
+    @Test(expected = MissingDataException.class)
+    public void accessUpdateException() throws NotFoundException, MissingDataException {
+        Access access = accessDAO.find(3);
+        access.setDeleted(null);
+        accessDAO.saveOrUpdate(access);
     }
 }

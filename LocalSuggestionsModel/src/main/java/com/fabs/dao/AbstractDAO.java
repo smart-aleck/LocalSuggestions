@@ -84,6 +84,7 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
     protected Set<T> findByFieldEquals(String fieldName, Object fieldId) {
         CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = builder.createQuery(persistentClass);
+
         Root<T> root = criteriaQuery.from(persistentClass);
         criteriaQuery.select(root);
         criteriaQuery.where(builder.equal(root.get(fieldName), fieldId));
@@ -104,4 +105,13 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
         criteriaQuery.select(builder.count(criteriaQuery.from(persistentClass)));
         return sessionFactory.getCurrentSession().createQuery(criteriaQuery).getSingleResult();
     }
+//    protected Long rowCount(String fieldName, Object fieldId){
+//        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
+//        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+//
+//        Root<T> root = criteriaQuery.from(persistentClass);
+//        criteriaQuery.select(builder.count(root));
+//        criteriaQuery.where(builder.equal(root.get(fieldName), fieldId));
+//        return sessionFactory.getCurrentSession().createQuery(criteriaQuery).getSingleResult();
+//    }
 }

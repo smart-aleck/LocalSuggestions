@@ -28,6 +28,13 @@ public abstract class AbstractCoreDAO<PK extends Serializable, T> extends Abstra
         return refreshEntity(entity);
     }
     public Long count(){
+        return count(false);
+    }
+    public Long count(Boolean withDeleted){
         return rowCount();
+//        if(withDeleted)
+//            return rowCount();
+//        else
+//            return rowCount("isDeleted", withDeleted);
     }
 }

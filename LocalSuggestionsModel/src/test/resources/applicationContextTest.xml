@@ -24,13 +24,13 @@
     <!--====================================================-->
     <!--DATABASE INITIALIZATION ON STARTUP - BE VERY CAREFUL-->
     <!--====================================================-->
-    <jdbc:initialize-database data-source="dataSourceUsers" enabled="true">
+    <jdbc:initialize-database data-source="dataSourceUsers" enabled="false">
         <jdbc:script location="classpath:mysql/baseline/schema/use_test_local_suggestions_users.sql"/>
         <jdbc:script location="classpath:mysql/baseline/schema/create_local_suggestions_users.sql"/>
         <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions_users.sql"/>
     </jdbc:initialize-database>
 
-    <jdbc:initialize-database data-source="dataSourceCore" enabled="true">
+    <jdbc:initialize-database data-source="dataSourceCore" enabled="false">
         <jdbc:script location="classpath:mysql/baseline/schema/use_test_local_suggestions_core.sql"/>
         <jdbc:script location="classpath:mysql/baseline/schema/create_local_suggestions_core.sql"/>
         <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions_core.sql"/>

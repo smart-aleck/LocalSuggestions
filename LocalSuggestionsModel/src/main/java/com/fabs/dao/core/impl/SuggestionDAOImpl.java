@@ -38,7 +38,7 @@ public class SuggestionDAOImpl extends AbstractCoreDAO<Long, Suggestion> impleme
             "       LineString (" +
             "           Point (:lon + :radius / ( :units / COS(RADIANS(:lat))), :lat + :radius / :units )," +
             "           Point (:lon - :radius / ( :units / COS(RADIANS(:lat))), :lat - :radius / :units ) ), " +
-            "       location )";
+            "       displayLocation )";
 
         Map<String, Object> namedParameters = new HashMap<>();
         namedParameters.put("lon", location.getX());

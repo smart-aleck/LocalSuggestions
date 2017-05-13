@@ -25,12 +25,20 @@ public abstract class AbstractUsersDAO<PK extends Serializable, T> extends Abstr
     public T find(PK key) throws NotFoundException {
         return findEntity(key);
     }
-    public Long count(){
-        return rowCount();
-    }
     public T refresh(T entity){
         return refreshEntity(entity);
     }
+    public Long count(){
+        return count(false);
+    }
+    public Long count(Boolean withDeleted){
+        return rowCount();
+//        if(withDeleted)
+//            return rowCount();
+//        else
+//            return rowCount("com.fabs.model.users.Access.isDeleted", withDeleted);
+    }
+
     public Set<T> find(Set<PK> keys) {
         return findEntity(keys);
     }

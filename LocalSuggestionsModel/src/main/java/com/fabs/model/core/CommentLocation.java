@@ -1,6 +1,7 @@
 package com.fabs.model.core;
 
 import com.vividsolutions.jts.geom.Point;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -37,6 +38,7 @@ public class CommentLocation {
     }
 
     @Basic
+    @Type(type = "com.fabs.type.geometry.MySQL2DPointType")
     @Column(name = "location")
     public Point getLocation() {
         return location;
