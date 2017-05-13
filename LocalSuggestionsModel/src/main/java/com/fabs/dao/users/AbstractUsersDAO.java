@@ -25,6 +25,9 @@ public abstract class AbstractUsersDAO<PK extends Serializable, T> extends Abstr
     public T find(PK key) throws NotFoundException {
         return findEntity(key);
     }
+    public Long count(){
+        return rowCount();
+    }
 
     public Set<T> find(Set<PK> keys) {
         return findEntity(keys);

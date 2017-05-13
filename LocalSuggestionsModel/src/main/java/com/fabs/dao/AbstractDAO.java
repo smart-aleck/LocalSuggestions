@@ -24,7 +24,7 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
 
     @SuppressWarnings("unchecked")
     public AbstractDAO(){
-        this.persistentClass =(Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+        this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
     protected void saveOrUpdateEntity(T entity) throws MissingDataException {
@@ -57,28 +57,35 @@ public abstract class AbstractDAO<PK extends Serializable, T> {
 
     protected Set<T> findEntity(Set<PK> ids) {
         CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
-        CriteriaQuery<T> criteria = builder.createQuery(persistentClass);
-        Root<T> root = criteria.from(persistentClass);
-        criteria.select(root);
-        criteria.where(root.get("id").in(ids));
+        CriteriaQuery<T> criteriaQuery = builder.createQuery(persistentClass);
+        Root<T> root = criteriaQuery.from(persistentClass);
+        criteriaQuery.select(root);
+        criteriaQuery.where(root.get("id").in(ids));
 
         return new HashSet<>(
-                sessionFactory.getCurrentSession().createQuery(criteria).getResultList());
+                sessionFactory.getCurrentSession().createQuery(criteriaQuery).getResultList());
     }
 
     protected Set<T> findByFieldEquals(String fieldName, Object fieldId) {
         CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
-        CriteriaQuery<T> criteria = builder.createQuery(persistentClass);
-        Root<T> root = criteria.from(persistentClass);
-        criteria.select(root);
-        criteria.where(builder.equal(root.get(fieldName), fieldId));
+        CriteriaQuery<T> criteriaQuery = builder.createQuery(persistentClass);
+        Root<T> root = criteriaQuery.from(persistentClass);
+        criteriaQuery.select(root);
+        criteriaQuery.where(builder.equal(root.get(fieldName), fieldId));
         return new HashSet<>(
-                sessionFactory.getCurrentSession().createQuery(criteria).getResultList());
+                sessionFactory.getCurrentSession().createQuery(criteriaQuery).getResultList());
     }
 
     protected Set<T> findByQuery(String queryStr, Map<String, Object> namedParameters) {
         Query query = sessionFactory.getCurrentSession().createNativeQuery(queryStr, persistentClass);
         namedParameters.entrySet().forEach(entry -> query.setParameter(entry.getKey(), entry.getValue()));
         return new HashSet<T>(query.getResultList());
+    }
+
+    protected Long rowCount(){
+        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+        criteriaQuery.select(builder.count(criteriaQuery.from(persistentClass)));
+        return sessionFactory.getCurrentSession().createQuery(criteriaQuery).getSingleResult();
     }
 }

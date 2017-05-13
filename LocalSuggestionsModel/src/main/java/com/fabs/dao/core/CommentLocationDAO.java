@@ -1,14 +1,7 @@
 package com.fabs.dao.core;
 
+import com.fabs.dao.BaseDAO;
 import com.fabs.model.core.CommentLocation;
-import com.fabs.model.exceptions.MissingDataException;
-import com.fabs.model.exceptions.NotFoundException;
 
-public interface CommentLocationDAO {
-
-    void saveOrUpdate(CommentLocation commentLocation) throws MissingDataException;
-
-    void delete(CommentLocation commentLocation) throws MissingDataException;
-
-    CommentLocation find(Integer id) throws NotFoundException;
+public interface CommentLocationDAO extends BaseDAO<Integer, CommentLocation> {
 }
