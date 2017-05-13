@@ -8,4 +8,33 @@
 
     <import resource="applicationContext.xml"/>
 
+    <bean id="dataSourceCore" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/test_local_suggestions_core" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+    <bean id="dataSourceUsers" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/test_local_suggestions_users" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <!--====================================================-->
+    <!--DATABASE INITIALIZATION ON STARTUP - BE VERY CAREFUL-->
+    <!--====================================================-->
+    <jdbc:initialize-database data-source="dataSourceUsers" enabled="true">
+        <jdbc:script location="classpath:mysql/baseline/schema/use_test_local_suggestions_users.sql"/>
+        <jdbc:script location="classpath:mysql/baseline/schema/create_local_suggestions_users.sql"/>
+        <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions_users.sql"/>
+    </jdbc:initialize-database>
+
+    <jdbc:initialize-database data-source="dataSourceCore" enabled="true">
+        <jdbc:script location="classpath:mysql/baseline/schema/use_test_local_suggestions_core.sql"/>
+        <jdbc:script location="classpath:mysql/baseline/schema/create_local_suggestions_core.sql"/>
+        <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions_core.sql"/>
+    </jdbc:initialize-database>
+    <!--====================================================-->
+
 </beans>

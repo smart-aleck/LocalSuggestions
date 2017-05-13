@@ -1,6 +1,3 @@
-DROP SCHEMA local_suggestions_users;
-CREATE DATABASE  IF NOT EXISTS `local_suggestions_users` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `local_suggestions_users`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: local_suggestions_users

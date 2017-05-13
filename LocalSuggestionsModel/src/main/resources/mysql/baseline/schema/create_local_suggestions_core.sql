@@ -1,7 +1,3 @@
-DROP SCHEMA local_suggestions_core;
--- Dump completed on 2017-05-06  0:43:07
-CREATE DATABASE  IF NOT EXISTS `local_suggestions_core` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `local_suggestions_core`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: local_suggestions_core

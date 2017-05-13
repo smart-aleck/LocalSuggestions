@@ -28,11 +28,13 @@
     <!--DATABASE INITIALIZATION ON STARTUP - BE VERY CAREFUL-->
     <!--====================================================-->
     <jdbc:initialize-database data-source="dataSourceUsers" enabled="false">
+        <jdbc:script location="classpath:mysql/baseline/schema/use_local_suggestions_users.sql"/>
         <jdbc:script location="classpath:mysql/baseline/schema/create_local_suggestions_users.sql"/>
         <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions_users.sql"/>
     </jdbc:initialize-database>
 
     <jdbc:initialize-database data-source="dataSourceCore" enabled="false">
+        <jdbc:script location="classpath:mysql/baseline/schema/use_local_suggestions_core.sql"/>
         <jdbc:script location="classpath:mysql/baseline/schema/create_local_suggestions_core.sql"/>
         <jdbc:script location="classpath:mysql/baseline/data/insert_local_suggestions_core.sql"/>
     </jdbc:initialize-database>
@@ -60,8 +62,6 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/local_suggestions_core</prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
     </bean>
@@ -83,8 +83,6 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/local_suggestions_users</prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
     </bean>

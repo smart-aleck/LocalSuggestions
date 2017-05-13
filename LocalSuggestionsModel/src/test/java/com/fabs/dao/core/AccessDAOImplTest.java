@@ -1,14 +1,17 @@
 package com.fabs.dao.core;
 
 import com.fabs.dao.users.AccessDAO;
+import com.fabs.dao.users.AddressDAO;
 import com.fabs.dao.users.impl.AccessDAOImpl;
 import com.fabs.model.exceptions.MissingDataException;
 import com.fabs.model.exceptions.NotFoundException;
 import com.fabs.model.users.Access;
+import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,11 +24,18 @@ public class AccessDAOImplTest {
     @Autowired
     private AccessDAO accessDAO;
 
+    @Autowired
+    private AddressDAO addressDAO;
+
     @Test
     @Transactional(value = "transactionManagerUsers")
     @Rollback(true)
     public void testAddDepartment() throws NotFoundException, MissingDataException {
-        Access access = accessDAO.find(1);
-        Assert.assertEquals(Long.parseLong(String.valueOf(access.getId())) , 1);
+        Assert.assertEquals(Long.parseLong(String.valueOf(accessDAO.find(1).getId())) , 1);
+        Assert.assertEquals(Long.parseLong(String.valueOf(accessDAO.find(2).getId())) , 2);
+        Assert.assertEquals(Long.parseLong(String.valueOf(accessDAO.find(3).getId())) , 3);
+
+        Assert.assertEquals(Long.parseLong(String.valueOf(addressDAO.find(1).getId())) , 1);
+        Assert.assertEquals(Long.parseLong(String.valueOf(addressDAO.find(2).getId())) , 2);
     }
 }
